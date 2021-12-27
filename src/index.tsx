@@ -1,17 +1,27 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import MyApp from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import { BrowserRouter } from "react-router-dom";
+import { combineReducers, createStore, applyMiddleware } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import thunk from "redux-thunk";
+import { Provider } from "react-redux";
+import authReducer from './store/AuthSlice'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <MyApp />
-  </React.StrictMode>,
-  document.getElementById('root')
+const rootReducer = combineReducers({auth: authReducer});
+
+export const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(thunk))
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+ReactDOM.render(
+  <BrowserRouter>
+    <React.StrictMode>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </React.StrictMode>
+  </BrowserRouter>,
+  document.getElementById("root")
+);

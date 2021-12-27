@@ -1,0 +1,53 @@
+html,
+body {
+  font-family: Poppins;
+  padding: 0;
+  margin: 0;
+  background-color: #e5e5e5;
+}
+
+button,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-family: Poppins;
+}
+
+.nav{
+  display: flex;
+  flex-direction: row;
+  height: 60px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1E5128;
+  color: #ffffff;
+}
+
+.align-left{
+  display: flex;
+  flex-direction: row;
+  height: 60px;
+  width: 300px;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.align-right{
+  display: flex;
+  flex-direction: row;
+  height: 60px;
+  width: 300px;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 10px;
+}
+
+.icon{
+  font-size: 30px;
+}
