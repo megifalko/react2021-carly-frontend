@@ -2,9 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export interface AuthState {
   isLoggedIn: boolean;
-  securityToken: string | null;
+  securityToken: string;
 }
-const initialState: AuthState = { isLoggedIn: false, securityToken: null };
+const initialState: AuthState = { isLoggedIn: false, securityToken: "" };
 
 const authSlice = createSlice({
   name: "auth",
