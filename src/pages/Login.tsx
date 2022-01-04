@@ -11,7 +11,7 @@ const Login = () => {
   const navigate = useNavigate();
   const onClick = () => {
     isLoggedIn ? dispatch(logout()) : dispatch(login());
-    navigate("../cars");
+    navigate("../bookings");
   };
 
   return (

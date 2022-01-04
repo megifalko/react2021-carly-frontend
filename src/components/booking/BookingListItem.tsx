@@ -1,9 +1,20 @@
 import React from "react";
+import {Booking} from "../../objects/Booking"
+import PureModal from 'react-pure-modal';
+import 'react-pure-modal/dist/react-pure-modal.min.css';
 
-const BookingListItem = () => {
-  return (
+interface BookingListItemProps {
+    booking: Booking;
+    onShowDetails: Function
+}
+
+const BookingListItem: React.FC<BookingListItemProps> = (props: BookingListItemProps) => {
+    return (
     <>
-      <h2>Booking list item</h2>
+        <p>Start date: {props.booking.startDate.toString()}</p>
+        <p>Booking active: {props.booking.active.toString()}</p>
+        <img/>
+        <button onClick={() => props.onShowDetails(props.booking)}>Details</button>
     </>
   );
 };
