@@ -1,11 +1,29 @@
-import React from "react";
+import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {RiHome2Line, RiUserLine} from "react-icons/ri";
+import "../../styles/navbar.css";
+import {RiArrowDropDownFill, RiUserLine} from "react-icons/ri";
+import CarsFilter from "./CarsFilter";
+import CarsSort from "./CarsSort";
+import NewCarPlaceholder from "./NewCarPlaceholder";
 
 const NavigationBar = () => {
 
     const navigate = useNavigate();
+    const [filtersDropped, setFiltersDropped] = useState(false);
+    const [sortDropped, setSortDropped] = useState(false);
+    const [newCarVisible, setNewCarVisible] = useState(false);
 
+    const closeFilters = () => {
+        setFiltersDropped(false);
+    }
+
+    const closeSort = () => {
+        setSortDropped(false);
+    }
+
+    const closeNewCar = () => {
+        setNewCarVisible(false);
+    }
     return (
         <>
             <nav className="nav">
@@ -13,25 +31,44 @@ const NavigationBar = () => {
                     <p>
                         Carly Admin
                     </p>
-                    <button>
-                        Filter
-                    </button>
-                    <button>
-                        Sort
-                    </button>
+                    <div className={"dropdown"}>
+                        <button
+                            className={"drop-button " + (filtersDropped ? "drop-button-dropped" : "")}
+                            onClick={() => {setFiltersDropped(!filtersDropped)}}>
+                            <p className={"button-content"}>Filter</p>
+                            <RiArrowDropDownFill className={"icon button-content"} />
+                        </button>
+                        <div className={"dropdown-content " + (filtersDropped ? "dropdown-content-dropped" : "")}>
+                            <CarsFilter close={closeFilters}/>
+                        </div>
+                    </div>
 
-
-
+                    <div className={"dropdown"}>
+                        <button
+                            className={"drop-button " + (sortDropped ? "drop-button-dropped" : "")}
+                            onClick={() => {setSortDropped(!sortDropped)}}>
+                            Sort <RiArrowDropDownFill className={"icon"} />
+                        </button>
+                        <div className={"dropdown-content " + (sortDropped ? "dropdown-content-dropped" : "")}>
+                            <CarsSort close={closeSort}/>
+                        </div>
+                    </div>
                 </div>
                 <input />
-                <button>
+                <button onClick={() => {setNewCarVisible(!newCarVisible)}}>
                     New Car
                 </button>
                 <div className="align-right">
-                    <button>Bookings</button>
+                    <button onClick={() => navigate("bookings")}>
+                        Bookings
+                    </button>
                     <RiUserLine className="icon" onClick={() => navigate("login")}/>
                 </div>
             </nav>
+            <div className={"popup-content " + (newCarVisible ? "popup-content-shown" : "")}>
+                <NewCarPlaceholder close={closeNewCar} />
+            </div>
+
         </>
     );
 };
