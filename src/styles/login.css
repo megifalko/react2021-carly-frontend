@@ -1,0 +1,36 @@
+.logo {
+    height: 100px;
+    width: 100px;
+    margin: 1em auto;
+    display: block;
+}
+
+.login-container {
+
+    margin: auto;
+    width: 40%;
+}
+
+input {
+    box-sizing: content-box;
+    display: block;
+    margin: 1em auto;
+    border: none;
+    padding: 0 1.5em;
+    min-width: 50%;
+    height: 3em;
+    border-radius: 1.5em;
+}
+
+.login-button {
+    display: block;
+    margin: 1em auto;
+    padding: 0.5em;
+    border-radius: 1.5em;
+    height: 3em;
+    width: 50%;
+    background: #4E9F3D;
+    color: white;
+    border: none;
+    text-align: center;
+}
