@@ -26,7 +26,9 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route element={<PrivateRoute redirectPath="login" />}>
           <Route index element={<CarList />} />
-          <Route path="cars" element={<CarList />} />
+          <Route path="cars" element={<CarList />} >
+            {/*<Route path=":id" element={<CarDetails />}/>}*/}
+          </Route>
           <Route path="bookings" element={<BookingList />} />
         </Route>
         <Route path="login" element={<Login />} />
