@@ -1,12 +1,12 @@
-import React, {Component} from "react";
-import "../../styles/navbar.css";
+import React from "react";
+import "../../../styles/navbar.css";
 import {RiCloseLine} from "react-icons/ri";
 
-interface CarsSortProps {
+interface BookingsSortProps {
     close: Function
 }
 
-const CarsSort = (props : CarsSortProps) => {
+const BookingsSort = (props : BookingsSortProps) => {
 
     const filters = new Map<string, string[]>([
         ["Data dodania", ["najnowsze", "najstarsze"]],
@@ -30,5 +30,5 @@ const CarsSort = (props : CarsSortProps) => {
     );
 };
 
-export default CarsSort;
+export default BookingsSort;
 

@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/navbar.css";
+import "../../../styles/navbar.css";
 import {RiCloseLine} from "react-icons/ri";
 
 interface CarsFilterProps {

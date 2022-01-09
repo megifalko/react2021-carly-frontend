@@ -1,17 +1,15 @@
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import "../../styles/navbar.css";
-import {RiArrowDropDownFill, RiUserLine} from "react-icons/ri";
-import CarsFilter from "./CarsFilter";
-import CarsSort from "./CarsSort";
-import NewCarPlaceholder from "./NewCarPlaceholder";
+import "../../../styles/navbar.css";
+import {RiArrowDropDownFill} from "react-icons/ri";
+import BookingsFilter from "./BookingsFilter";
+import BookingsSort from "./BookingsSort";
 
 const NavigationBar = () => {
 
     const navigate = useNavigate();
     const [filtersDropped, setFiltersDropped] = useState(false);
     const [sortDropped, setSortDropped] = useState(false);
-    const [newCarVisible, setNewCarVisible] = useState(false);
 
     const closeFilters = () => {
         setFiltersDropped(false);
@@ -20,17 +18,10 @@ const NavigationBar = () => {
     const closeSort = () => {
         setSortDropped(false);
     }
-
-    const closeNewCar = () => {
-        setNewCarVisible(false);
-    }
     return (
         <>
-            <nav className="nav">
+            <div className="nav-content">
                 <div className="align-left">
-                    <p>
-                        Carly Admin
-                    </p>
                     <div className={"dropdown"}>
                         <button
                             className={"drop-button " + (filtersDropped ? "drop-button-dropped" : "")}
@@ -39,7 +30,7 @@ const NavigationBar = () => {
                             <RiArrowDropDownFill className={"icon button-content"} />
                         </button>
                         <div className={"dropdown-content " + (filtersDropped ? "dropdown-content-dropped" : "")}>
-                            <CarsFilter close={closeFilters}/>
+                            <BookingsFilter close={closeFilters}/>
                         </div>
                     </div>
 
@@ -50,23 +41,18 @@ const NavigationBar = () => {
                             Sort <RiArrowDropDownFill className={"icon"} />
                         </button>
                         <div className={"dropdown-content " + (sortDropped ? "dropdown-content-dropped" : "")}>
-                            <CarsSort close={closeSort}/>
+                            <BookingsSort close={closeSort}/>
                         </div>
                     </div>
                 </div>
                 <input />
-                <button onClick={() => {setNewCarVisible(!newCarVisible)}}>
-                    New Car
-                </button>
-                <div className="align-right">
-                    <button onClick={() => navigate("bookings")}>
-                        Bookings
-                    </button>
-                    <RiUserLine className="icon" onClick={() => navigate("login")}/>
+                <div className={"align-right"}>
+                    <div className="align-right">
+                        <button onClick={() => navigate("/cars")}>
+                            Cars
+                        </button>
+                    </div>
                 </div>
-            </nav>
-            <div className={"popup-content " + (newCarVisible ? "popup-content-shown" : "")}>
-                <NewCarPlaceholder close={closeNewCar} />
             </div>
 
         </>

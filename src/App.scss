@@ -28,6 +28,17 @@ p {
   color: #ffffff;
 }
 
+.nav-content{
+  display: flex;
+  flex-direction: row;
+  height: 60px;
+  justify-content: space-between;
+  align-items: center;
+  width: 60%;
+  background-color: #1E5128;
+  color: #ffffff;
+}
+
 .align-left{
   display: flex;
   flex-direction: row;
