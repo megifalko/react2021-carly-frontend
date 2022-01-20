@@ -3,21 +3,42 @@ import "../../../styles/navbar.css";
 import {RiCloseLine} from "react-icons/ri";
 
 interface BookingsSortProps {
-    close: Function
+    close: Function;
+    submit: Function;
 }
-
+interface BookingsFilter {
+    name: string
+    visibleName: string
+    ascending: string
+    descending: string
+}
 const BookingsSort = (props : BookingsSortProps) => {
 
-    const filters = new Map<string, string[]>([
-        ["Data dodania", ["najnowsze", "najstarsze"]],
-        ["Cena", ["od najniższej", "od najwyższej"]],
-        ["Wiek", ["od najstarszego", "od najnowszego"]]
-    ]);
-    const options : JSX.Element[] = [];
-    filters.forEach((val, key) => {
-        val.forEach((val_el)=> {
-            options.push(<button id={key + val_el} >{key}: {val_el}</button>)
-        })
+    const filters: BookingsFilter[] = [
+        {name: "date", visibleName: "Data dodania", ascending: "od najmłodszych", descending: "od najstarszych"},
+        {name: "price", visibleName: "Cena", ascending: "od najtańszych", descending: "od najdroższych"},
+    ]
+
+    const options: JSX.Element[] = [];
+    filters.forEach((val) => {
+        options.push(
+            <button
+                id={"1" + val.name}
+                onClick={() => {
+                    props.submit(val.name, "ascending");
+                    props.close();
+                }}>
+                {val.visibleName}: {val.ascending}
+            </button>)
+        options.push(
+            <button
+                id={"2" + val.name}
+                onClick={() => {
+                    props.submit(val.name, "descending");
+                    props.close();
+                }}>
+                {val.visibleName}: {val.descending}
+            </button>)
     });
 
     return (

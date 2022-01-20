@@ -1,19 +1,44 @@
 import React, {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import "../../../styles/navbar.css";
-import {RiArrowDropDownFill, RiUserLine} from "react-icons/ri";
+import {RiArrowDropDownFill, RiSearchLine, RiUserLine} from "react-icons/ri";
 import CarsFilter from "./CarsFilter";
 import CarsSort from "./CarsSort";
 import NewCarPlaceholder from "./NewCarPlaceholder";
+import useGet from "../../../modules/useGet";
 import useLogin from "../../../modules/useLogin";
 
 const NavigationBar = () => {
 
+    const query = new URLSearchParams(useLocation().search);
+
     const navigate = useNavigate();
+    const {updateParam, refreshPath} = useGet("cars");
     const {logOut} = useLogin();
     const [filtersDropped, setFiltersDropped] = useState(false);
     const [sortDropped, setSortDropped] = useState(false);
     const [newCarVisible, setNewCarVisible] = useState(false);
+    const [searchPhrase, setSearchPhrase] = useState(query.has("search") ? query.get("search") : "");
+
+    const submitFilters = (model: string, location: string) =>
+    {
+        updateParam("model", model, query);
+        updateParam("location", location, query);
+        refreshPath(navigate, query);
+    }
+
+    const search = () => {
+        updateParam("search", searchPhrase ?? "", query);
+        refreshPath(navigate, query);
+    }
+
+    const submitSort = (criterion: string, direction: string) =>
+    {
+        updateParam("sort", criterion, query);
+        updateParam("direction", direction, query);
+        refreshPath(navigate, query);
+    }
+
 
     const closeFilters = () => {
         setFiltersDropped(false);
@@ -38,7 +63,7 @@ const NavigationBar = () => {
                             <RiArrowDropDownFill className={"icon button-content"} />
                         </button>
                         <div className={"dropdown-content " + (filtersDropped ? "dropdown-content-dropped" : "")}>
-                            <CarsFilter close={closeFilters}/>
+                            <CarsFilter close={closeFilters} submit={submitFilters}/>
                         </div>
                     </div>
 
@@ -49,11 +74,14 @@ const NavigationBar = () => {
                             Sort <RiArrowDropDownFill className={"icon"} />
                         </button>
                         <div className={"dropdown-content " + (sortDropped ? "dropdown-content-dropped" : "")}>
-                            <CarsSort close={closeSort}/>
+                            <CarsSort submit={submitSort} close={closeSort} />
                         </div>
                     </div>
                 </div>
-                <input />
+                <input onChange={(e) => {setSearchPhrase(e.target.value)}}/>
+                <button onClick={search}>
+                    <RiSearchLine className={"icon"} />
+                </button>
                 <div className={"align-right"}>
                     <button onClick={() => {setNewCarVisible(!newCarVisible)}}>
                         New Car

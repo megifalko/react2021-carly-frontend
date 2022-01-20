@@ -3,27 +3,51 @@ import "../../../styles/navbar.css";
 import {RiCloseLine} from "react-icons/ri";
 
 interface CarsSortProps {
-    close: Function
+    close: Function;
+    submit: Function;
 }
 
-const CarsSort = (props : CarsSortProps) => {
+interface CarFilter {
+    name: string,
+    visibleName: string,
+    ascending: string,
+    descending: string,
+}
 
-    const filters = new Map<string, string[]>([
-        ["Data dodania", ["najnowsze", "najstarsze"]],
-        ["Cena", ["od najniższej", "od najwyższej"]],
-        ["Wiek", ["od najstarszego", "od najnowszego"]]
-    ]);
-    const options : JSX.Element[] = [];
-    filters.forEach((val, key) => {
-        val.forEach((val_el)=> {
-            options.push(<button id={key + val_el} >{key}: {val_el}</button>)
-        })
+const CarsSort = (props: CarsSortProps) => {
+
+
+    const filters: CarFilter[] = [
+        {name: "date", visibleName: "Data dodania", ascending: "od najmłodszych", descending: "od najstarszych"},
+        {name: "price", visibleName: "Cena", ascending: "od najtańszych", descending: "od najdroższych"},
+    ]
+
+    const options: JSX.Element[] = [];
+    filters.forEach((val) => {
+        options.push(
+            <button
+                id={"1" + val.name}
+                onClick={() => {
+                    props.submit(val.name, "ascending")
+                }}>
+                {val.visibleName}: {val.ascending}
+            </button>)
+        options.push(
+            <button
+                id={"2" + val.name}
+                onClick={() => {
+                    props.submit(val.name, "descending")
+                }}>
+                {val.visibleName}: {val.descending}
+            </button>)
     });
 
     return (
         <div>
-            <button onClick={() => {props.close()}}>
-                <RiCloseLine className="icon" />
+            <button onClick={() => {
+                props.close()
+            }}>
+                <RiCloseLine className="icon"/>
             </button>
             {options}
         </div>

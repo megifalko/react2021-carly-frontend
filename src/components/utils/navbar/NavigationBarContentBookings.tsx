@@ -1,20 +1,31 @@
 import React, {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import "../../../styles/navbar.css";
-import {RiArrowDropDownFill, RiUserLine} from "react-icons/ri";
-import BookingsFilter from "./BookingsFilter";
+import {RiArrowDropDownFill, RiSearchLine} from "react-icons/ri";
 import BookingsSort from "./BookingsSort";
+import useGet from "../../../modules/useGet";
+import BookingsFilter from "./BookingsFilter";
 import useLogin from "../../../modules/useLogin";
 
 const NavigationBar = () => {
 
+    const query = new URLSearchParams(useLocation().search);
+    const {updateParam, refreshPath} = useGet("bookings");
     const {logOut} = useLogin();
     const navigate = useNavigate();
-    const [filtersDropped, setFiltersDropped] = useState(false);
     const [sortDropped, setSortDropped] = useState(false);
+    const [searchPhrase, setSearchPhrase] = useState(query.has("search") ? query.get("search") : "");
 
-    const closeFilters = () => {
-        setFiltersDropped(false);
+    const search = () => {
+        updateParam("search", searchPhrase ?? "", query);
+        refreshPath(navigate, query);
+    }
+
+    const submitSort = (criterion: string, direction: string) =>
+    {
+        updateParam("sort", criterion, query);
+        updateParam("direction", direction, query);
+        refreshPath(navigate, query);
     }
 
     const closeSort = () => {
@@ -26,28 +37,19 @@ const NavigationBar = () => {
                 <div className="align-left">
                     <div className={"dropdown"}>
                         <button
-                            className={"drop-button " + (filtersDropped ? "drop-button-dropped" : "")}
-                            onClick={() => {setFiltersDropped(!filtersDropped)}}>
-                            <p className={"button-content"}>Filter</p>
-                            <RiArrowDropDownFill className={"icon button-content"} />
-                        </button>
-                        <div className={"dropdown-content " + (filtersDropped ? "dropdown-content-dropped" : "")}>
-                            <BookingsFilter close={closeFilters}/>
-                        </div>
-                    </div>
-
-                    <div className={"dropdown"}>
-                        <button
                             className={"drop-button " + (sortDropped ? "drop-button-dropped" : "")}
                             onClick={() => {setSortDropped(!sortDropped)}}>
                             Sort <RiArrowDropDownFill className={"icon"} />
                         </button>
                         <div className={"dropdown-content " + (sortDropped ? "dropdown-content-dropped" : "")}>
-                            <BookingsSort close={closeSort}/>
+                            <BookingsSort close={closeSort} submit={submitSort}/>
                         </div>
                     </div>
                 </div>
-                <input />
+                <input onChange={(e) => {setSearchPhrase(e.target.value)}}/>
+                <button onClick={search}>
+                    <RiSearchLine className={"icon"} />
+                </button>
                 <div className={"align-right"}>
                     <div className="align-right">
                         <button onClick={() => navigate("/cars")}>

@@ -1,26 +1,34 @@
-import React from "react";
+import React, {useState} from "react";
 import "../../../styles/navbar.css";
 import {RiCloseLine} from "react-icons/ri";
+import {useLocation} from "react-router-dom";
 
 interface CarsFilterProps {
-    close: Function
+    close: Function;
+    submit: Function;
 }
 
 const CarsFilter = (props : CarsFilterProps) => {
+    const [model, setModel] = useState("");
+    const [location, setLocation] = useState("");
+    const submitForm = () => {
+        props.submit(model, location);
+        props.close();
+    }
     return (
-        <div>
-            <button onClick={() => {props.close()}}>
+        <form>
+            <button onClick={() => {props.close()}} type={'button'}>
                 <RiCloseLine className="icon" />
             </button>
             <b>Filter by...</b>
             <p>Pickup location</p>
-            <input />
+            <input onChange={(e) => {setLocation(e.target.value)}}/>
             <p>Model</p>
-            <input />
-            <button>
+            <input onChange={(e) => {setModel(e.target.value)}}/>
+            <button type={"button"} onClick={submitForm}>
                 Apply
             </button>
-        </div>
+        </form>
     );
 };
 
