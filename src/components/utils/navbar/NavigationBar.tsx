@@ -31,9 +31,6 @@ const NavigationBar = () => {
                     </p>
                 </div>
                 {content}
-                <div className="align-right">
-                    <RiUserLine className="icon" onClick={() => navigate("login")}/>
-                </div>
             </nav>
         </>
     );

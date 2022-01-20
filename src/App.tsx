@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { Routes, Route, Navigate, RouteProps, Outlet } from "react-router-dom";
 import "./App.scss";
 import BookingList from "./pages/BookingList";
@@ -6,14 +5,14 @@ import CarList from "./pages/CarList";
 import Layout from "./pages/Layout";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
-import { AuthState } from "./store/AuthSlice";
+import useLogin from "./modules/useLogin";
 
 export interface PrivateRouteProps extends RouteProps {
   redirectPath: string;
 }
 
 export const PrivateRoute = ({ redirectPath }: PrivateRouteProps) => {
-  const isLoggedIn = useSelector((state: {auth: AuthState}) => state.auth.isLoggedIn);
+  const {isLoggedIn} = useLogin();
   if (isLoggedIn) {
     return <Outlet />;
   }

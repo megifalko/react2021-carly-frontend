@@ -1,12 +1,14 @@
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import "../../../styles/navbar.css";
-import {RiArrowDropDownFill} from "react-icons/ri";
+import {RiArrowDropDownFill, RiUserLine} from "react-icons/ri";
 import BookingsFilter from "./BookingsFilter";
 import BookingsSort from "./BookingsSort";
+import useLogin from "../../../modules/useLogin";
 
 const NavigationBar = () => {
 
+    const {logOut} = useLogin();
     const navigate = useNavigate();
     const [filtersDropped, setFiltersDropped] = useState(false);
     const [sortDropped, setSortDropped] = useState(false);
@@ -53,8 +55,11 @@ const NavigationBar = () => {
                         </button>
                     </div>
                 </div>
-            </div>
 
+            </div>
+            <div className="align-right">
+                <RiUserLine className="icon" onClick={() => logOut()}/>
+            </div>
         </>
     );
 };

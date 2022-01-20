@@ -3,7 +3,7 @@ import CarListItem from "../components/car/CarListItem";
 import {useDispatch, useSelector} from "react-redux";
 import {CarsState, updateCars} from "../store/CarsSlice";
 import { Outlet } from 'react-router-dom'
-import {AuthState} from "../store/AuthSlice";
+import useLogin from "../modules/useLogin";
 
 /*
 const defaultCar: Car = {
@@ -19,11 +19,11 @@ const defaultCar: Car = {
 
 const CarList = () => {
     const cars = useSelector((state: {cars: CarsState}) => state.cars.cars )
-    const securityToken = useSelector((state: {auth: AuthState}) => state.auth.securityToken);
+    const {authToken} = useLogin();
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(updateCars(securityToken))
+        dispatch(updateCars(authToken))
     }, []);
 
     return (

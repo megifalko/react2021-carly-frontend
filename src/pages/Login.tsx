@@ -1,36 +1,69 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { AuthState, login, logout } from "../store/AuthSlice";
+import React, {useState} from "react";
+import {useNavigate} from "react-router-dom";
 import logo from "../resources/logo_login.bmp"
 import "../styles/login.css"
+import useLogin from "../modules/useLogin";
+import useAuthorization from "../modules/useAuthorization";
 
 const Login = () => {
-  const isLoggedIn = useSelector((state: {auth: AuthState}) => state.auth.isLoggedIn);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const onClick = () => {
-    isLoggedIn ? dispatch(logout()) : dispatch(login());
-    navigate("../bookings");
-  };
+    const {logIn} = useLogin()
+    const navigate = useNavigate();
+    const auth = useAuthorization();
 
-  return (
-    <>
-        <form className={"login-container"}>
-            <img src={logo} className={"logo"}/>
+    const [loginValue, setLoginValue] = useState("");
+    const [passwordValue, setPasswordValue] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [showError, setShowError] = useState(false);
 
-            <input placeholder={"username"}/>
-            <input placeholder={"password"} type={"password"}/>
+    const onClick = async () => {
+        let res;
+        setLoading(true);
+        try {
+            res =  await auth(loginValue, passwordValue);
+        }
+        catch {
+            setShowError(true);
+            setLoading(false);
+            return;
+        }
 
-            <button
-                onClick={onClick}
-                className={"login-button"}>
-                Log in
-            </button>
-        </form>
+        if(res.jwttoken === "")
+            setShowError(true);
+        else
+        {
+            logIn(res.jwttoken);
+            navigate("../cars");
+        }
+        setLoading(false);
+    };
 
-    </>
-  );
+    const errMess = showError ? <p>error</p> : <></>;
+    return (
+        <>
+            {
+                loading ?
+                    <p>loading</p> :
+                    <form className={"login-container"}>
+                        <img src={logo} className={"logo"}/>
+
+                        <input
+                            placeholder={"username"}
+                            onChange={(e) => {setLoginValue(e.target.value)}}/>
+                        <input
+                            placeholder={"password"}
+                            type={"password"}
+                            onChange={(e) => {setPasswordValue(e.target.value)}}/>
+                        {errMess}
+                        <button
+                            onClick={onClick}
+                            className={"login-button"}
+                            type={'button'}>
+                            Log in
+                        </button>
+                    </form>
+            }
+        </>
+    );
 };
 
 export default Login;

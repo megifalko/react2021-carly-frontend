@@ -1,14 +1,16 @@
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import "../../../styles/navbar.css";
-import {RiArrowDropDownFill} from "react-icons/ri";
+import {RiArrowDropDownFill, RiUserLine} from "react-icons/ri";
 import CarsFilter from "./CarsFilter";
 import CarsSort from "./CarsSort";
 import NewCarPlaceholder from "./NewCarPlaceholder";
+import useLogin from "../../../modules/useLogin";
 
 const NavigationBar = () => {
 
     const navigate = useNavigate();
+    const {logOut} = useLogin();
     const [filtersDropped, setFiltersDropped] = useState(false);
     const [sortDropped, setSortDropped] = useState(false);
     const [newCarVisible, setNewCarVisible] = useState(false);
@@ -67,7 +69,10 @@ const NavigationBar = () => {
             <div className={"popup-content " + (newCarVisible ? "popup-content-shown" : "")}>
                 <NewCarPlaceholder close={closeNewCar} />
             </div>
+            <div className="align-right">
 
+                <RiUserLine className="icon" onClick={() => logOut()}/>
+            </div>
         </>
     );
 };
