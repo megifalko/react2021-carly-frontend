@@ -1,10 +1,9 @@
 import React, {useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import "../../../styles/navbar.css";
-import {RiArrowDropDownFill, RiSearchLine} from "react-icons/ri";
+import {RiArrowDropDownFill, RiSearchLine, RiUserLine} from "react-icons/ri";
 import BookingsSort from "./BookingsSort";
 import useGet from "../../../modules/useGet";
-import BookingsFilter from "./BookingsFilter";
 import useLogin from "../../../modules/useLogin";
 
 const NavigationBar = () => {
