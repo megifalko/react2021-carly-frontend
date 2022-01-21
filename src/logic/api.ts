@@ -1,6 +1,6 @@
 import {Car} from "../objects/Car";
 
-const BASE_URL = 'http://localhost:8080';
+const BASE_URL = '';
 
 export const getCars = async (securityToken: string) => {
 
@@ -9,7 +9,7 @@ export const getCars = async (securityToken: string) => {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
-                'security-header': securityToken
+                'Authorization': `Bearer ${securityToken}`
             }
         }).then(response => {
         if (response.ok) {
@@ -27,7 +27,7 @@ export const getCarsWithParams = async (page: number, carsPerPage: number, secur
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
-                'security-header': securityToken
+                'Authorization': `Bearer ${securityToken}`
             }
         }).then(response => {
         if (response.ok) {
@@ -45,7 +45,7 @@ export const getCar = async (id: string, securityToken: string) => {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
-                'security-header': securityToken
+                'Authorization': `Bearer ${securityToken}`
             }
         }).then(response => {
         if (response.ok) {
@@ -63,7 +63,7 @@ export const addCar = async (car: Car, securityToken: string) => {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
-                'security-header': securityToken
+                'Authorization': `Bearer ${securityToken}`
             },
             body: JSON.stringify([car])
         }).then(response => {
@@ -82,7 +82,7 @@ export const updateCar = async (car: Car, securityToken: string) => {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json',
-                'security-header': securityToken
+                'Authorization': `Bearer ${securityToken}`
             },
             body: JSON.stringify(car)
         }).then(response => {
@@ -101,7 +101,7 @@ export const deleteCar = async (id: string, securityToken: string) => {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',
-                'security-header': securityToken
+                'Authorization': `Bearer ${securityToken}`
             },
         }).then(response => {
         if (response.ok) {
@@ -119,7 +119,7 @@ export const getImagesIds = async (carId: string, securityToken: string) => {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
-                'security-header': securityToken
+                'Authorization': `Bearer ${securityToken}`
             },
         }).then(response => {
         if (response.ok) {
