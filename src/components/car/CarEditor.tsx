@@ -2,11 +2,16 @@ import React, {useState} from 'react'
 import {Car} from "../../objects/Car";
 
 interface CarEditorProps {
-    car: Car
+    cancelHandler: Function
+    saveHandler: (car: Car) => void
+    car?: Car
 }
 
-const CarEditor: React.FC<CarEditorProps> = (props) => {
-    const [editedCar, setEditedCar] = useState(props.car)
+const emptyCar: Car = {id: "", price: 1, brand: "", model: "", location: "", year: 2022, engine: ""};
+
+const CarEditor: React.FC<CarEditorProps> = ({car = emptyCar, cancelHandler, saveHandler}) => {
+
+    const [editedCar, setEditedCar] = useState(car)
 
     const updateBrand = (brand: string) => {
         setEditedCar({...editedCar, brand: brand})
@@ -36,38 +41,49 @@ const CarEditor: React.FC<CarEditorProps> = (props) => {
         <div>
             <p>Brand</p>
             <input
-                defaultValue={props.car.brand}
+                defaultValue={car.brand}
+                placeholder="Brand"
                 onChange={(e) => updateBrand(e.target.value)}/>
 
             <p>Model</p>
             <input
-                defaultValue={props.car.model}
+                defaultValue={car.model}
+                placeholder="Model"
                 onChange={(e) => updateModel(e.target.value)}/>
 
             <p>Year</p>
             <input
                 type={"number"}
-                defaultValue={props.car.year}
+                defaultValue={car.year}
+                placeholder="2022"
                 onChange={(e) => updateYear(Number(e.target.value))}/>
 
             <p>Engine</p>
             <input
-                defaultValue={props.car.engine}
+                defaultValue={car.engine}
+                placeholder="Engine"
                 onChange={(e) => updateEngine(e.target.value)}/>
 
             <p>Location</p>
             <input
-                defaultValue={props.car.location}
+                defaultValue={car.location}
+                placeholder="Location"
                 onChange={(e) => updateLocation(e.target.value)}/>
 
             <p>Price</p>
             <input
-                defaultValue={props.car.price}
+                defaultValue={car.price}
                 onChange={(e) => updatePrice(Number(e.target.value))}/>
             <span>/day</span>
 
-            <button>Save</button>
-            <button>Cancel</button>
+            <button
+                onClick={(_) => saveHandler(editedCar)}>
+                Save
+            </button>
+            <button
+                onClick={(_) => cancelHandler}>
+                Cancel
+            </button>
         </div>
     )
 }

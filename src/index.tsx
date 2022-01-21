@@ -7,9 +7,8 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import authReducer from './store/AuthSlice'
-import carsReducer from './store/CarsSlice'
 
-const rootReducer = combineReducers({auth: authReducer, cars: carsReducer});
+const rootReducer = combineReducers({auth: authReducer});
 
 export const store = createStore(
   rootReducer,
