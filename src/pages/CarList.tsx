@@ -56,6 +56,8 @@ const CarList = () => {
         deleteCar(details.id, authToken).catch((e) => {
             console.error("Error during deleting the car\n" +
                 JSON.stringify(e));
+        }).finally(() => {
+            updateList()
         })
         setShowDetails(false)
     }
@@ -69,14 +71,14 @@ const CarList = () => {
         updateCar(car, authToken).catch((e) => {
             console.error("Error during updating the car\n" +
                 JSON.stringify(e));
-        })
+        }).finally(()=>{updateList()})
     }
 
     const handleSaveNew = (car: Car) => {
         addCar(car, authToken).catch((e) => {
             console.error("Error during adding the car\n" +
                 JSON.stringify(e));
-        })
+        }).finally(()=>{updateList()})
     }
     //
     // const images = [{
@@ -151,7 +153,7 @@ const CarList = () => {
                     cancelHandler={() => setShowNew(false)}
                     saveHandler={(car) => {
                         handleSaveNew(car);
-                        setShowEditor(false)
+                        setShowNew(false)
                     }}/>
             </PureModal>
 
