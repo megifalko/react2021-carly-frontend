@@ -7,6 +7,7 @@ import CarDetails from "../components/car/CarDetails";
 import CarEditor from "../components/car/CarEditor";
 import useLogin from "../modules/useLogin";
 import {useLocation} from "react-router-dom";
+import ImageGallery from "react-image-gallery";
 
 const defaultCar: Car = {
     id: "fasd",
@@ -35,7 +36,7 @@ const CarList = () => {
     }, [page, location.search]);
 
     const updateList = () => {
-        getCarsWithParams(authToken, page,carsPerPage, location.search.substring(1)).then(response => {
+        getCarsWithParams(authToken, page, carsPerPage, location.search.substring(1)).then(response => {
             setCars(response.data);
         }).catch((e) => {
             console.error("Error during updating the car list \n" +
@@ -76,6 +77,31 @@ const CarList = () => {
             console.error("Error during adding the car\n" +
                 JSON.stringify(e));
         })
+    }
+    //
+    // const images = [{
+    //     original: 'https://picsum.photos/id/1018/1000/600/',
+    //     thumbnail: 'https://picsum.photos/id/1018/250/150/',
+    // },
+    //     {
+    //         original: 'https://picsum.photos/id/1015/1000/600/',
+    //         thumbnail: 'https://picsum.photos/id/1015/250/150/',
+    //     },
+    //     {
+    //         original: 'https://picsum.photos/id/1019/1000/600/',
+    //         thumbnail: 'https://picsum.photos/id/1019/250/150/',
+    //     }]
+
+    const _getStaticImages = () => {
+        const PREFIX_URL = 'https://raw.githubusercontent.com/xiaolin/react-image-gallery/master/static/';
+        let images = [];
+        for (let i = 2; i < 12; i++) {
+            images.push({
+                original: `${PREFIX_URL}${i}.jpg`,
+                thumbnail:`${PREFIX_URL}${i}t.jpg`
+            });
+        }
+        return images;
     }
 
     return (
@@ -129,7 +155,9 @@ const CarList = () => {
                     }}/>
             </PureModal>
 
-            <button onClick={()=>console.log(location.search)}>Show query</button>
+            <ImageGallery items={_getStaticImages()}/>
+
+            <button onClick={() => console.log(location.search)}>Show query</button>
             <button onClick={() => setShowNew(true)}>New Car</button>
             <button onClick={() => setPage(page - 1)} disabled={page === 0}>{"<"}</button>
             <button onClick={() => setPage(page + 1)}>{">"}</button>

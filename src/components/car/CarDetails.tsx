@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import {Car} from "../../objects/Car";
 import {getImagesIds, imageUri} from "../../logic/api";
-import {useSelector} from "react-redux";
-import {AuthState} from "../../store/AuthSlice";
+import ImageGallery from 'react-image-gallery';
+import useLogin from "../../modules/useLogin";
 
 interface CarDetailsProps {
     car: Car
@@ -10,22 +10,26 @@ interface CarDetailsProps {
     deleteHandler: Function
 }
 
-const CarDetails : React.FC<CarDetailsProps> = (props) => {
-    const securityToken = useSelector((state: { auth: AuthState }) => state.auth.securityToken);
+const CarDetails: React.FC<CarDetailsProps> = (props) => {
+    const {authToken} = useLogin();
     const [imagesIds, setImagesIds] = useState<string[]>([]);
 
     useEffect(() => {
         updateImagesIds()
-    }, []);
+    }, [props.car]);
 
     const updateImagesIds = () => {
-        getImagesIds(props.car.id, securityToken).then(data => {
+        getImagesIds(props.car.id, authToken).then(data => {
             setImagesIds(data);
         }).catch((e) => {
             console.error("Error during updating the imagesIds \n" +
                 JSON.stringify(e));
         })
     }
+
+    const carImages = imagesIds.map((id) => {
+        return {original: imageUri(id)}
+    })
 
     return (
         <div>
@@ -36,7 +40,7 @@ const CarDetails : React.FC<CarDetailsProps> = (props) => {
             <p>Model</p>
             <h2>{props.car.model}</h2>
 
-            <img src={imageUri(imagesIds[0])} alt={`${props.car.brand} ${props.car.model}`}/>
+            <ImageGallery items={carImages} showFullscreenButton={false} showPlayButton={false} showBullets={true}/>
 
             <p>Year</p>
             <h3>{props.car.year}</h3>
