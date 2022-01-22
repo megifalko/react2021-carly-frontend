@@ -155,9 +155,6 @@ const CarList = () => {
                     }}/>
             </PureModal>
 
-            <ImageGallery items={_getStaticImages()}/>
-
-            <button onClick={() => console.log(location.search)}>Show query</button>
             <button onClick={() => setShowNew(true)}>New Car</button>
             <button onClick={() => setPage(page - 1)} disabled={page === 0}>{"<"}</button>
             <button onClick={() => setPage(page + 1)}>{">"}</button>
