@@ -77,7 +77,7 @@ const CarList = () => {
         addCar(car, authToken).catch((e) => {
             console.error("Error during adding the car\n" +
                 JSON.stringify(e));
-        })
+        }).finally(()=>{updateList()})
     }
 
     return (
@@ -127,7 +127,7 @@ const CarList = () => {
                     cancelHandler={() => setShowNew(false)}
                     saveHandler={(car) => {
                         handleSaveNew(car);
-                        setShowEditor(false)
+                        setShowNew(false)
                     }}/>
             </PureModal>
 
