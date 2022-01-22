@@ -20,9 +20,11 @@ export const getCars = async (securityToken: string) => {
     })
 }
 
-export const getCarsWithParams = async (page: number, carsPerPage: number, securityToken: string) => {
+export const getCarsWithParams =
+    async(securityToken: string, page: number, perPage: number, query: string) => {
 
-    return fetch(`${BASE_URL}/cars?page=${page}&per_page=${carsPerPage}`,
+    return fetch(
+        `${BASE_URL}/cars?page=${page}&per_page=${perPage}&${query}`,
         {
             method: "GET",
             headers: {

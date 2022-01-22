@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import "../../../styles/navbar.css";
 import {RiArrowDropDownFill, RiSearchLine, RiUserLine} from "react-icons/ri";
-import CarsFilter from "./CarsFilter";
 import CarsSort from "./CarsSort";
 import NewCarPlaceholder from "./NewCarPlaceholder";
 import useGet from "../../../modules/useGet";
@@ -29,7 +28,7 @@ const NavigationBar = () => {
     }
 
     const search = () => {
-        updateParam("search", searchPhrase ?? "", query);
+        updateParam("search_text", searchPhrase ?? "", query);
         refreshPath(navigate, query);
     }
 
@@ -38,8 +37,6 @@ const NavigationBar = () => {
         updateParam(criterion + "_sort", direction, query);
         refreshPath(navigate, query);
     }
-
-
     const closeFilters = () => {
         setFiltersDropped(false);
     }

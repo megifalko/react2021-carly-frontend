@@ -6,6 +6,7 @@ import PureModal from "react-pure-modal";
 import CarDetails from "../components/car/CarDetails";
 import CarEditor from "../components/car/CarEditor";
 import useLogin from "../modules/useLogin";
+import {useLocation} from "react-router-dom";
 
 const defaultCar: Car = {
     id: "fasd",
@@ -18,6 +19,8 @@ const defaultCar: Car = {
 }
 
 const CarList = () => {
+    const location = useLocation()
+
     const {authToken} = useLogin();
     const [cars, setCars] = useState<Car[]>([]);
     const [showDetails, setShowDetails] = useState(false);
@@ -29,17 +32,16 @@ const CarList = () => {
 
     useEffect(() => {
         updateList()
-    }, [page]);
+    }, [page, location.search]);
 
     const updateList = () => {
-        getCarsWithParams(page, carsPerPage, authToken).then(response => {
+        getCarsWithParams(authToken, page,carsPerPage, location.search.substring(1)).then(response => {
             setCars(response.data);
         }).catch((e) => {
             console.error("Error during updating the car list \n" +
                 JSON.stringify(e));
         })
     }
-
     const handleShowDetails = (car: Car) => {
         setDetails(car)
         setShowDetails(true);
@@ -127,6 +129,7 @@ const CarList = () => {
                     }}/>
             </PureModal>
 
+            <button onClick={()=>console.log(location.search)}>Show query</button>
             <button onClick={() => setShowNew(true)}>New Car</button>
             <button onClick={() => setPage(page - 1)} disabled={page === 0}>{"<"}</button>
             <button onClick={() => setPage(page + 1)}>{">"}</button>
