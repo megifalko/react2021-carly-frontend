@@ -22,8 +22,7 @@ const NavigationBar = () => {
 
     const submitSort = (criterion: string, direction: string) =>
     {
-        updateParam("sort", criterion, query);
-        updateParam("direction", direction, query);
+        updateParam(criterion + "_sort", direction, query);
         refreshPath(navigate, query);
     }
 

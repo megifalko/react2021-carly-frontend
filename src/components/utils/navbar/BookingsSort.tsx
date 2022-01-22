@@ -25,7 +25,7 @@ const BookingsSort = (props : BookingsSortProps) => {
             <button
                 id={"1" + val.name}
                 onClick={() => {
-                    props.submit(val.name, "ascending");
+                    props.submit(val.name, "asc");
                     props.close();
                 }}>
                 {val.visibleName}: {val.ascending}
@@ -34,7 +34,7 @@ const BookingsSort = (props : BookingsSortProps) => {
             <button
                 id={"2" + val.name}
                 onClick={() => {
-                    props.submit(val.name, "descending");
+                    props.submit(val.name, "desc");
                     props.close();
                 }}>
                 {val.visibleName}: {val.descending}

@@ -7,6 +7,7 @@ import CarsSort from "./CarsSort";
 import NewCarPlaceholder from "./NewCarPlaceholder";
 import useGet from "../../../modules/useGet";
 import useLogin from "../../../modules/useLogin";
+import Dropdown from "../Dropdown";
 
 const NavigationBar = () => {
 
@@ -34,8 +35,7 @@ const NavigationBar = () => {
 
     const submitSort = (criterion: string, direction: string) =>
     {
-        updateParam("sort", criterion, query);
-        updateParam("direction", direction, query);
+        updateParam(criterion + "_sort", direction, query);
         refreshPath(navigate, query);
     }
 
@@ -55,17 +55,19 @@ const NavigationBar = () => {
         <>
             <div className="nav-content">
                 <div className="align-left">
-                    <div className={"dropdown"}>
-                        <button
-                            className={"drop-button " + (filtersDropped ? "drop-button-dropped" : "")}
-                            onClick={() => {setFiltersDropped(!filtersDropped)}}>
-                            <p className={"button-content"}>Filter</p>
-                            <RiArrowDropDownFill className={"icon button-content"} />
-                        </button>
-                        <div className={"dropdown-content " + (filtersDropped ? "dropdown-content-dropped" : "")}>
-                            <CarsFilter close={closeFilters} submit={submitFilters}/>
-                        </div>
-                    </div>
+                    {/*<div className={"dropdown"}>*/}
+                    {/*    <button*/}
+                    {/*        className={"drop-button " + (filtersDropped ? "drop-button-dropped" : "")}*/}
+                    {/*        onClick={() => {setFiltersDropped(!filtersDropped)}}>*/}
+                    {/*        <p className={"button-content"}>Filter</p>*/}
+                    {/*        <RiArrowDropDownFill className={"icon button-content"} />*/}
+                    {/*    </button>*/}
+                    {/*    <div className={"dropdown-content " + (filtersDropped ? "dropdown-content-dropped" : "")}>*/}
+                    {/*        <CarsFilter close={closeFilters} submit={submitFilters}/>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+
+                    <Dropdown submit={submitFilters} name={"Filter"} />
 
                     <div className={"dropdown"}>
                         <button

@@ -28,7 +28,7 @@ const CarsSort = (props: CarsSortProps) => {
             <button
                 id={"1" + val.name}
                 onClick={() => {
-                    props.submit(val.name, "ascending")
+                    props.submit(val.name, "asc")
                 }}>
                 {val.visibleName}: {val.ascending}
             </button>)
@@ -36,7 +36,7 @@ const CarsSort = (props: CarsSortProps) => {
             <button
                 id={"2" + val.name}
                 onClick={() => {
-                    props.submit(val.name, "descending")
+                    props.submit(val.name, "desc")
                 }}>
                 {val.visibleName}: {val.descending}
             </button>)
