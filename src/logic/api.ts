@@ -1,4 +1,5 @@
 import {Car} from "../objects/Car";
+import {initMetric} from "web-vitals/dist/modules/lib/initMetric";
 
 const BASE_URL = '';
 
@@ -123,6 +124,28 @@ export const getImagesIds = async (carId: string, securityToken: string) => {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${securityToken}`
             },
+        }).then(response => {
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw response;
+        }
+    })
+}
+
+export const uploadImage = async (carId: string, image: File, securityToken: string) => {
+
+    const formData = new FormData()
+    formData.append("file", image, image.name)
+
+    return fetch(`${BASE_URL}/images/${carId}`,
+        {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${securityToken}`
+            },
+            body: formData,
         }).then(response => {
         if (response.ok) {
             return response.json()

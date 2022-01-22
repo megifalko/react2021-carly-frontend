@@ -1,10 +1,10 @@
-import React, {useState} from 'react'
+import React, {ChangeEvent, ChangeEventHandler, useState} from 'react'
 import {Car} from "../../objects/Car";
-import { FileUploader } from "react-drag-drop-files";
+import {FileUploader} from "react-drag-drop-files";
 
 interface CarEditorProps {
     cancelHandler: Function
-    saveHandler: (car: Car) => void
+    saveHandler: (car: Car, file: File | null) => void
     car?: Car
 }
 
@@ -44,6 +44,13 @@ const CarEditor: React.FC<CarEditorProps> = ({car = emptyCar, cancelHandler, sav
     }
     const fileTypes = ["JPG", "PNG", "GIF"];
 
+    const fileSelectedHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files)
+        {
+            setFile(event.target.files[0]);
+        }
+    }
+
     return (
         <div>
             <p>Brand</p>
@@ -58,7 +65,8 @@ const CarEditor: React.FC<CarEditorProps> = ({car = emptyCar, cancelHandler, sav
                 placeholder="Model"
                 onChange={(e) => updateModel(e.target.value)}/>
 
-            <FileUploader handleChange={handleChange} name="file" types={fileTypes} />
+            <FileUploader handleChange={handleChange} name="file" types={fileTypes}/>
+            <input type="file" onChange={fileSelectedHandler}/>
 
             <p>Year</p>
             <input
@@ -86,7 +94,7 @@ const CarEditor: React.FC<CarEditorProps> = ({car = emptyCar, cancelHandler, sav
             <span>/day</span>
 
             <button
-                onClick={(_) => saveHandler(editedCar)}>
+                onClick={(_) => saveHandler(editedCar, file)}>
                 Save
             </button>
             <button

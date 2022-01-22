@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import CarListItem from "../components/car/CarListItem";
 import {Car} from "../objects/Car";
-import {addCar, deleteCar, getCarsWithParams, updateCar} from "../logic/api";
+import {addCar, deleteCar, getCarsWithParams, updateCar, uploadImage} from "../logic/api";
 import PureModal from "react-pure-modal";
 import CarDetails from "../components/car/CarDetails";
 import CarEditor from "../components/car/CarEditor";
@@ -67,14 +67,24 @@ const CarList = () => {
         setShowEditor(true)
     }
 
-    const handleSave = (car: Car) => {
+    const handleSave = (car: Car, file: File | null) => {
         updateCar(car, authToken).catch((e) => {
             console.error("Error during updating the car\n" +
                 JSON.stringify(e));
         }).finally(()=>{updateList()})
+
+        console.log(file)
+
+        if (file)
+        {
+            uploadImage(car.id, file, authToken).catch((e) => {
+                console.error("Error during updating the car\n" +
+                    JSON.stringify(e));
+            }).finally(()=>{updateList()})
+        }
     }
 
-    const handleSaveNew = (car: Car) => {
+    const handleSaveNew = (car: Car, file: File | null) => {
         addCar(car, authToken).catch((e) => {
             console.error("Error during adding the car\n" +
                 JSON.stringify(e));
@@ -135,8 +145,8 @@ const CarList = () => {
                 <CarEditor
                     car={details}
                     cancelHandler={() => setShowEditor(false)}
-                    saveHandler={(car) => {
-                        handleSave(car);
+                    saveHandler={(car, file) => {
+                        handleSave(car, file);
                         setShowEditor(false)
                     }}/>
             </PureModal>
@@ -151,8 +161,9 @@ const CarList = () => {
             >
                 <CarEditor
                     cancelHandler={() => setShowNew(false)}
-                    saveHandler={(car) => {
-                        handleSaveNew(car);
+                    saveHandler={(car, file) => {
+                        handleSaveNew(car, file);
+
                         setShowNew(false)
                     }}/>
             </PureModal>
