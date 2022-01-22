@@ -35,7 +35,7 @@ const CarList = () => {
     }, [page, location.search]);
 
     const updateList = () => {
-        getCarsWithParams(authToken, page,carsPerPage, location.search.substring(1)).then(response => {
+        getCarsWithParams(authToken, page, carsPerPage, location.search.substring(1)).then(response => {
             setCars(response.data);
         }).catch((e) => {
             console.error("Error during updating the car list \n" +
@@ -55,7 +55,7 @@ const CarList = () => {
         deleteCar(details.id, authToken).catch((e) => {
             console.error("Error during deleting the car\n" +
                 JSON.stringify(e));
-        })
+        }).finally(()=>{updateList()})
         setShowDetails(false)
     }
 
@@ -129,7 +129,6 @@ const CarList = () => {
                     }}/>
             </PureModal>
 
-            <button onClick={()=>console.log(location.search)}>Show query</button>
             <button onClick={() => setShowNew(true)}>New Car</button>
             <button onClick={() => setPage(page - 1)} disabled={page === 0}>{"<"}</button>
             <button onClick={() => setPage(page + 1)}>{">"}</button>

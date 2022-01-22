@@ -81,7 +81,7 @@ const CarEditor: React.FC<CarEditorProps> = ({car = emptyCar, cancelHandler, sav
                 Save
             </button>
             <button
-                onClick={(_) => cancelHandler}>
+                onClick={(_) => cancelHandler()}>
                 Cancel
             </button>
         </div>

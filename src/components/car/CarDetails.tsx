@@ -52,11 +52,11 @@ const CarDetails : React.FC<CarDetailsProps> = (props) => {
             <span>/day</span>
 
             <button
-                onClick={(_) => props.deleteHandler}>
+                onClick={(_) => props.deleteHandler()}>
                 Delete
             </button>
             <button
-                onClick={(_) => props.editHandler}>
+                onClick={(_) => props.editHandler()}>
                 Edit
             </button>
         </div>
