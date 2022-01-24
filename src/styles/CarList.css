@@ -8,7 +8,7 @@
     border: black;
     margin: 1em;
     width: 300px;
-    height: 300px;
+    height: auto;
     border-radius: 25px;
     background-color: whitesmoke;
     -webkit-box-shadow: 8px 8px 100px 0px rgba(66, 68, 90, 0.15);
@@ -24,7 +24,7 @@
 
 .car-list-item button {
     display: block;
-    margin: 1em auto auto auto;
+    margin: 1em auto 1em auto;
     padding: 0.5em;
     border-radius: 1.5em;
     height: 3em;
