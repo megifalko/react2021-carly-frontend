@@ -132,6 +132,27 @@ export const getImagesIds = async (carId: string, securityToken: string) => {
     })
 }
 
+export const uploadImage = async (carId: string, image: File, securityToken: string) => {
+
+    const formData = new FormData()
+    formData.append("file", image, image.name)
+
+    return fetch(`${BASE_URL}/images/${carId}`,
+        {
+            method: "POST",
+            headers: {
+                'Authorization': `Bearer ${securityToken}`
+            },
+            body: formData,
+        }).then(response => {
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw response;
+        }
+    })
+}
+
 export const imageUri = (imageId: string) => {
     return `${BASE_URL}/images/${imageId}`
 }
