@@ -1,0 +1,50 @@
+.car-list {
+    display: grid;
+    grid-column-gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.car-list-item {
+    border: black;
+    margin: 1em;
+    width: 300px;
+    height: 300px;
+    border-radius: 25px;
+    background-color: whitesmoke;
+    -webkit-box-shadow: 8px 8px 100px 0px rgba(66, 68, 90, 0.15);
+    -moz-box-shadow: 8px 8px 100px 0px rgba(66, 68, 90, 0.15);
+    box-shadow: 8px 8px 100px 0px rgba(66, 68, 90, 0.15);
+}
+
+.car-list-item img {
+    width: 200px;
+    display: block;
+    margin: auto;
+}
+
+.car-list-item button {
+    display: block;
+    margin: 1em auto auto auto;
+    padding: 0.5em;
+    border-radius: 1.5em;
+    height: 3em;
+    width: 50%;
+    background: #4E9F3D;
+    color: white;
+    border: none;
+    text-align: center;
+}
+
+.brand-header {
+    font-size: 2em;
+    margin-block-start: 5px;
+    margin-block-end: 5px;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.model-header {
+    margin-block-start: 0px;
+    margin-left: 10px;
+    color: lightslategrey;
+}

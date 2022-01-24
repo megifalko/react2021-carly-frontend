@@ -7,7 +7,7 @@ import CarDetails from "../components/car/CarDetails";
 import CarEditor from "../components/car/CarEditor";
 import useLogin from "../modules/useLogin";
 import {useLocation} from "react-router-dom";
-import ImageGallery from "react-image-gallery";
+import '../styles/CarList.css'
 
 const defaultCar: Car = {
     id: "fasd",
@@ -28,7 +28,7 @@ const CarList = () => {
     const [showEditor, setShowEditor] = useState(false);
     const [showNew, setShowNew] = useState(false);
     const [details, setDetails] = useState<Car>(defaultCar);
-    const [carsPerPage] = useState(3);
+    const [carsPerPage] = useState(8);
     const [page, setPage] = useState(0);
 
     useEffect(() => {
@@ -73,8 +73,6 @@ const CarList = () => {
                 JSON.stringify(e));
         }).finally(()=>{updateList()})
 
-        console.log(file)
-
         if (file)
         {
             uploadImage(car.id, file, authToken).catch((e) => {
@@ -89,31 +87,14 @@ const CarList = () => {
             console.error("Error during adding the car\n" +
                 JSON.stringify(e));
         }).finally(()=>{updateList()})
-    }
-    //
-    // const images = [{
-    //     original: 'https://picsum.photos/id/1018/1000/600/',
-    //     thumbnail: 'https://picsum.photos/id/1018/250/150/',
-    // },
-    //     {
-    //         original: 'https://picsum.photos/id/1015/1000/600/',
-    //         thumbnail: 'https://picsum.photos/id/1015/250/150/',
-    //     },
-    //     {
-    //         original: 'https://picsum.photos/id/1019/1000/600/',
-    //         thumbnail: 'https://picsum.photos/id/1019/250/150/',
-    //     }]
 
-    const _getStaticImages = () => {
-        const PREFIX_URL = 'https://raw.githubusercontent.com/xiaolin/react-image-gallery/master/static/';
-        let images = [];
-        for (let i = 2; i < 12; i++) {
-            images.push({
-                original: `${PREFIX_URL}${i}.jpg`,
-                thumbnail:`${PREFIX_URL}${i}t.jpg`
-            });
+        if (file)
+        {
+            uploadImage(car.id, file, authToken).catch((e) => {
+                console.error("Error during updating the car\n" +
+                    JSON.stringify(e));
+            }).finally(()=>{updateList()})
         }
-        return images;
     }
 
     return (
@@ -171,12 +152,14 @@ const CarList = () => {
             <button onClick={() => setShowNew(true)}>New Car</button>
             <button onClick={() => setPage(page - 1)} disabled={page === 0}>{"<"}</button>
             <button onClick={() => setPage(page + 1)}>{">"}</button>
-            {cars.map((car) => {
-                    return (
-                        <CarListItem key={car.id} car={car} onShowDetails={handleShowDetails}/>
-                    )
-                }
-            )}
+            <div className="car-list">
+                {cars.map((car) => {
+                        return (
+                            <CarListItem key={car.id} car={car} onShowDetails={handleShowDetails}/>
+                        )
+                    }
+                )}
+            </div>
         </>
     );
 };
