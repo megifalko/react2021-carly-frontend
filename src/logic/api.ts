@@ -1,5 +1,4 @@
 import {Car} from "../objects/Car";
-import {initMetric} from "web-vitals/dist/modules/lib/initMetric";
 
 const BASE_URL = '';
 
@@ -142,7 +141,6 @@ export const uploadImage = async (carId: string, image: File, securityToken: str
         {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${securityToken}`
             },
             body: formData,
