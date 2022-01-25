@@ -1,6 +1,6 @@
-import React, {ChangeEvent, ChangeEventHandler, useState} from 'react'
+import React, {ChangeEvent, useState} from 'react'
 import {Car} from "../../objects/Car";
-import {FileUploader} from "react-drag-drop-files";
+import 'react-upload-gallery/dist/style.css'
 
 interface CarEditorProps {
     cancelHandler: Function
@@ -39,10 +39,6 @@ const CarEditor: React.FC<CarEditorProps> = ({car = emptyCar, cancelHandler, sav
     }
 
     const [file, setFile] = useState<File | null>(null);
-    const handleChange = (file: File) => {
-        setFile(file);
-    }
-    const fileTypes = ["JPG", "PNG", "GIF"];
 
     const fileSelectedHandler = (event: ChangeEvent<HTMLInputElement>) => {
         if (event.target.files)
@@ -65,7 +61,6 @@ const CarEditor: React.FC<CarEditorProps> = ({car = emptyCar, cancelHandler, sav
                 placeholder="Model"
                 onChange={(e) => updateModel(e.target.value)}/>
 
-            <FileUploader handleChange={handleChange} name="file" types={fileTypes}/>
             <input type="file" onChange={fileSelectedHandler}/>
 
             <p>Year</p>
