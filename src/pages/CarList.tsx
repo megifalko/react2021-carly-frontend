@@ -8,6 +8,7 @@ import CarEditor from "../components/car/CarEditor";
 import useLogin from "../modules/useLogin";
 import {useLocation} from "react-router-dom";
 import '../styles/CarList.css'
+import ReactPaginate from 'react-paginate';
 
 const defaultCar: Car = {
     id: "fasd",
@@ -30,6 +31,7 @@ const CarList = () => {
     const [details, setDetails] = useState<Car>(defaultCar);
     const [carsPerPage] = useState(8);
     const [page, setPage] = useState(0);
+    const [pageCount, setPageCount] = useState(0)
 
     useEffect(() => {
         updateList()
@@ -37,12 +39,14 @@ const CarList = () => {
 
     const updateList = () => {
         getCarsWithParams(authToken, page, carsPerPage, location.search.substring(1)).then(response => {
+            setPageCount(response.pageCount)
             setCars(response.data);
         }).catch((e) => {
             console.error("Error during updating the car list \n" +
                 JSON.stringify(e));
         })
     }
+
     const handleShowDetails = (car: Car) => {
         setDetails(car)
         setShowDetails(true);
@@ -98,9 +102,7 @@ const CarList = () => {
     }
 
     return (
-        <>
-            <h1>Car list</h1>
-
+        <div className="car-list-view">
             <PureModal
                 header="Car details"
                 onClose={() => {
@@ -149,9 +151,7 @@ const CarList = () => {
                     }}/>
             </PureModal>
 
-            <button onClick={() => setShowNew(true)}>New Car</button>
-            <button onClick={() => setPage(page - 1)} disabled={page === 0}>{"<"}</button>
-            <button onClick={() => setPage(page + 1)}>{">"}</button>
+            {/*<button onClick={() => setShowNew(true)}>New Car</button>*/}
             <div className="car-list">
                 {cars.map((car) => {
                         return (
@@ -160,7 +160,32 @@ const CarList = () => {
                     }
                 )}
             </div>
-        </>
+            <ReactPaginate
+                nextLabel="next >"
+                onPageChange={(event) => setPage(event.selected)}
+                pageRangeDisplayed={3}
+                marginPagesDisplayed={2}
+                pageCount={pageCount}
+
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+
+                previousLabel="< previous"
+                previousClassName="page-item"
+                previousLinkClassName="page-link"
+
+                nextClassName="page-item"
+                nextLinkClassName="page-link"
+
+                breakLabel="..."
+                breakClassName="page-item"
+                breakLinkClassName="page-link"
+
+                containerClassName="pagination"
+                activeClassName="active"
+                renderOnZeroPageCount={undefined}
+            />
+        </div>
     );
 };
 
