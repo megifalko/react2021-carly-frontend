@@ -4,7 +4,7 @@ import {RiArrowDropDownFill} from "react-icons/ri";
 import CarsFilter from "./navbar/CarsFilter";
 
 interface NewCarPlaceholderProps {
-    submit: Function;
+    content: Function;
     name: string;
 }
 
@@ -18,9 +18,9 @@ const Dropdown = (props : NewCarPlaceholderProps) => {
                 <p className={"button-content"}>{props.name}</p>
                 <RiArrowDropDownFill className={"icon button-content"} />
             </button>
-            <div className={"dropdown-arrow dropdown-arrow-tl"}>
+            <div className={""}>
                 <div className={" dropdown-content " + (dropped ? "dropdown-content-dropped" : "")}>
-                    <CarsFilter close={() => setDropped(false)} submit={props.submit}/>
+                    {props.content(() => setDropped(false))}
                 </div>
             </div>
         </div>

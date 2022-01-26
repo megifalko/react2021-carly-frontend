@@ -5,6 +5,7 @@ import {RiArrowDropDownFill, RiSearchLine, RiUserLine} from "react-icons/ri";
 import BookingsSort from "./BookingsSort";
 import useGet from "../../../modules/useGet";
 import useLogin from "../../../modules/useLogin";
+import Dropdown from "../Dropdown";
 
 const NavigationBar = () => {
 
@@ -12,7 +13,6 @@ const NavigationBar = () => {
     const {updateParam, refreshPath} = useGet("bookings");
     const {logOut} = useLogin();
     const navigate = useNavigate();
-    const [sortDropped, setSortDropped] = useState(false);
     const [searchPhrase, setSearchPhrase] = useState(query.has("search") ? query.get("search") : "");
 
     const search = () => {
@@ -20,33 +20,26 @@ const NavigationBar = () => {
         refreshPath(navigate, query);
     }
 
-    const submitSort = (criterion: string, direction: string) =>
-    {
+    const submitSort = (criterion: string, direction: string) => {
         updateParam(criterion + "_sort", direction, query);
         refreshPath(navigate, query);
     }
 
-    const closeSort = () => {
-        setSortDropped(false);
-    }
     return (
         <>
             <div className="nav-content">
                 <div className="align-left">
-                    <div className={"dropdown"}>
-                        <button
-                            className={"drop-button " + (sortDropped ? "drop-button-dropped" : "")}
-                            onClick={() => {setSortDropped(!sortDropped)}}>
-                            Sort <RiArrowDropDownFill className={"icon"} />
-                        </button>
-                        <div className={"dropdown-content " + (sortDropped ? "dropdown-content-dropped" : "")}>
-                            <BookingsSort close={closeSort} submit={submitSort}/>
-                        </div>
-                    </div>
+                    <Dropdown
+                        content={(close: Function) => {
+                            return <BookingsSort close={close} submit={submitSort}/>
+                        }}
+                        name={"Sort"}/>
                 </div>
-                <input onChange={(e) => {setSearchPhrase(e.target.value)}}/>
+                <input onChange={(e) => {
+                    setSearchPhrase(e.target.value)
+                }}/>
                 <button onClick={search}>
-                    <RiSearchLine className={"icon"} />
+                    <RiSearchLine className={"icon"}/>
                 </button>
                 <div className={"align-right"}>
                     <div className="align-right">

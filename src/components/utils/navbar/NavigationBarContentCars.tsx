@@ -7,6 +7,7 @@ import NewCarPlaceholder from "./NewCarPlaceholder";
 import useGet from "../../../modules/useGet";
 import useLogin from "../../../modules/useLogin";
 import Dropdown from "../Dropdown";
+import CarsFilter from "./CarsFilter";
 
 const NavigationBar = () => {
 
@@ -15,13 +16,10 @@ const NavigationBar = () => {
     const navigate = useNavigate();
     const {updateParam, refreshPath} = useGet("cars");
     const {logOut} = useLogin();
-    const [filtersDropped, setFiltersDropped] = useState(false);
-    const [sortDropped, setSortDropped] = useState(false);
     const [newCarVisible, setNewCarVisible] = useState(false);
     const [searchPhrase, setSearchPhrase] = useState(query.has("search") ? query.get("search") : "");
 
-    const submitFilters = (model: string, location: string) =>
-    {
+    const submitFilters = (model: string, location: string) => {
         updateParam("model", model, query);
         updateParam("location", location, query);
         refreshPath(navigate, query);
@@ -32,17 +30,9 @@ const NavigationBar = () => {
         refreshPath(navigate, query);
     }
 
-    const submitSort = (criterion: string, direction: string) =>
-    {
+    const submitSort = (criterion: string, direction: string) => {
         updateParam(criterion + "_sort", direction, query);
         refreshPath(navigate, query);
-    }
-    const closeFilters = () => {
-        setFiltersDropped(false);
-    }
-
-    const closeSort = () => {
-        setSortDropped(false);
     }
 
     const closeNewCar = () => {
@@ -51,54 +41,39 @@ const NavigationBar = () => {
     return (
         <>
             <div className="nav-content">
-                <div className="align-left">
-                    {/*<div className={"dropdown"}>*/}
-                    {/*    <button*/}
-                    {/*        className={"drop-button " + (filtersDropped ? "drop-button-dropped" : "")}*/}
-                    {/*        onClick={() => {setFiltersDropped(!filtersDropped)}}>*/}
-                    {/*        <p className={"button-content"}>Filter</p>*/}
-                    {/*        <RiArrowDropDownFill className={"icon button-content"} />*/}
-                    {/*    </button>*/}
-                    {/*    <div className={"dropdown-content " + (filtersDropped ? "dropdown-content-dropped" : "")}>*/}
-                    {/*        <CarsFilter close={closeFilters} submit={submitFilters}/>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
-
-                    <Dropdown submit={submitFilters} name={"Filter"} />
-
-                    <div className={"dropdown"}>
-                        <button
-                            className={"drop-button " + (sortDropped ? "drop-button-dropped" : "")}
-                            onClick={() => {setSortDropped(!sortDropped)}}>
-                            Sort <RiArrowDropDownFill className={"icon"} />
-                        </button>
-                        <div className={"dropdown-content " + (sortDropped ? "dropdown-content-dropped" : "")}>
-                            <CarsSort submit={submitSort} close={closeSort} />
-                        </div>
-                    </div>
+                <div className={"align-left"}>
+                    <Dropdown
+                        content={(close: Function) => {
+                            return <CarsFilter close={close} submit={submitFilters}/>
+                        }}
+                        name={"Filter"}/>
+                    <Dropdown
+                        content={(close: Function) => {
+                            return <CarsSort close={close} submit={submitSort}/>
+                        }}
+                        name={"Sort"}/>
                 </div>
-                <input onChange={(e) => {setSearchPhrase(e.target.value)}}/>
+                <input onChange={(e) => {
+                    setSearchPhrase(e.target.value)
+                }}/>
                 <button onClick={search}>
-                    <RiSearchLine className={"icon"} />
+                    <RiSearchLine className={"icon"}/>
                 </button>
-                <div className={"align-right"}>
-                    <button onClick={() => {setNewCarVisible(!newCarVisible)}}>
-                        New Car
-                    </button>
-                    <div className="align-right">
-                        <button onClick={() => navigate("bookings")}>
-                            Bookings
-                        </button>
-                    </div>
+                <button onClick={() => {
+                    setNewCarVisible(!newCarVisible)
+                }}>
+                    New Car
+                </button>
+                <button onClick={() => navigate("bookings")}>
+                    Bookings
+                </button>
+                <div className={"popup-content " + (newCarVisible ? "popup-content-shown" : "")}>
+                    <NewCarPlaceholder close={closeNewCar}/>
                 </div>
+                <div className="align-right">
 
-            </div>
-            <div className={"popup-content " + (newCarVisible ? "popup-content-shown" : "")}>
-                <NewCarPlaceholder close={closeNewCar} />
-            </div>
-            <div className="align-right">
-
-                <RiUserLine className="icon" onClick={() => logOut()}/>
+                    <RiUserLine className="icon" onClick={() => logOut()}/>
+                </div>
             </div>
         </>
     );
