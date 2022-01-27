@@ -1,10 +1,13 @@
-import React, {ChangeEvent, useState} from 'react'
+import React, {ChangeEvent, useEffect, useState} from 'react'
 import {Car} from "../../objects/Car";
 import 'react-upload-gallery/dist/style.css'
+import '../../styles/CarEditor.css'
+import { getImagesIds, imageUri } from '../../logic/api';
+import useLogin from '../../modules/useLogin';
 
 interface CarEditorProps {
     cancelHandler: Function
-    saveHandler: (car: Car, file: File | null) => void
+    saveHandler: (car: Car, uploadedImages: File[], imgsToDelete: string[]) => void
     car?: Car
 }
 
@@ -38,14 +41,28 @@ const CarEditor: React.FC<CarEditorProps> = ({car = emptyCar, cancelHandler, sav
         setEditedCar({...editedCar, price: price})
     }
 
-    const [file, setFile] = useState<File | null>(null);
-
-    const fileSelectedHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files)
-        {
-            setFile(event.target.files[0]);
-        }
+    const galleryItem = (image: string, id: Number, removeHandler: Function) => {
+        return <div key={image}>
+            <img src={image} className='img-preview'/>
+            <button onClick={() => removeHandler(id)}>X</button>
+        </div>
     }
+
+    const {authToken} = useLogin();
+    const [imageIds, setImageIds] = useState<string[]>([]);
+    const [initialImageIds, setInitialImageIds] = useState<string[]>([]);
+    const [uploadedImages, setUploadedImages] = useState<File[]>([])
+
+    useEffect(() => {
+        if(car == emptyCar) return;
+        getImagesIds(car.id, authToken).then(data => {
+            setImageIds(data);
+            setInitialImageIds(data);
+        }).catch((e) => {
+            console.error("Error during updating the imageIds \n" +
+                JSON.stringify(e));
+        })
+    }, []);
 
     return (
         <div>
@@ -61,7 +78,17 @@ const CarEditor: React.FC<CarEditorProps> = ({car = emptyCar, cancelHandler, sav
                 placeholder="Model"
                 onChange={(e) => updateModel(e.target.value)}/>
 
-            <input type="file" onChange={fileSelectedHandler}/>
+            <div>
+                {uploadedImages.map((img, id) => galleryItem(
+                    URL.createObjectURL(img), id, (id: Number) => 
+                        setUploadedImages(uploadedImages.filter((img, imgId) => imgId != id))))}
+                {imageIds.map((img, id) => galleryItem(imageUri(img), id, ((id: Number) => 
+                        setImageIds(imageIds.filter((img, imgId) => imgId != id)))))}
+                
+                <input accept="image/*" type="file" onChange={(event) => {
+                    if(event.target.files) setUploadedImages([...uploadedImages, event.target.files[0]]);
+                }}/>
+            </div>
 
             <p>Year</p>
             <input
@@ -89,7 +116,7 @@ const CarEditor: React.FC<CarEditorProps> = ({car = emptyCar, cancelHandler, sav
             <span>/day</span>
 
             <button
-                onClick={(_) => saveHandler(editedCar, file)}>
+                onClick={(_) => saveHandler(editedCar, uploadedImages, initialImageIds.filter(img => !imageIds.includes(img)))}>
                 Save
             </button>
             <button

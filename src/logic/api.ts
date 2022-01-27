@@ -153,6 +153,23 @@ export const uploadImage = async (carId: string, image: File, securityToken: str
     })
 }
 
+
+export const deleteImage = async (id: string, securityToken: string) => {
+    return fetch(`${BASE_URL}/images/${id}`,
+        {
+            method: "DELETE",
+            headers: {
+                'Authorization': `Bearer ${securityToken}`
+            },
+        }).then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                throw response;
+            }
+        })
+}
+
 export const imageUri = (imageId: string) => {
     return `${BASE_URL}/images/${imageId}`
 }

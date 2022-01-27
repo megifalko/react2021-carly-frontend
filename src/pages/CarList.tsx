@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import CarListItem from "../components/car/CarListItem";
 import {Car} from "../objects/Car";
-import {addCar, deleteCar, getCarsWithParams, updateCar, uploadImage} from "../logic/api";
+import {addCar, deleteCar, deleteImage, getCarsWithParams, updateCar, uploadImage} from "../logic/api";
 import PureModal from "react-pure-modal";
 import CarDetails from "../components/car/CarDetails";
 import CarEditor from "../components/car/CarEditor";
@@ -71,34 +71,40 @@ const CarList = () => {
         setShowEditor(true)
     }
 
-    const handleSave = (car: Car, file: File | null) => {
+    const handleSave = (car: Car, uploadedImages: File[], imgsToDelete: string[] = []) => {
         updateCar(car, authToken).catch((e) => {
             console.error("Error during updating the car\n" +
                 JSON.stringify(e));
         }).finally(()=>{updateList()})
 
-        if (file)
-        {
-            uploadImage(car.id, file, authToken).catch((e) => {
-                console.error("Error during updating the car\n" +
-                    JSON.stringify(e));
-            }).finally(()=>{updateList()})
-        }
+        Promise.all(uploadedImages.map(img => uploadImage(car.id, img, authToken)))
+        .catch((e) => {
+            console.error("Error during uploading image\n" +
+                JSON.stringify(e));
+        })
+        .finally(()=>{updateList()});
+
+        Promise.all(imgsToDelete.map(img => deleteImage(img, authToken)))
+        .catch((e) => {
+            console.error("Error during deleting image\n" +
+                JSON.stringify(e));
+        })
+        .finally(()=>{updateList()});
     }
 
-    const handleSaveNew = (car: Car, file: File | null) => {
+    const handleSaveNew = (car: Car, uploadedImages: File[]) => {
         addCar(car, authToken).catch((e) => {
             console.error("Error during adding the car\n" +
                 JSON.stringify(e));
-        }).finally(()=>{updateList()})
-
-        if (file)
-        {
-            uploadImage(car.id, file, authToken).catch((e) => {
-                console.error("Error during updating the car\n" +
+        })
+        .then((id) => {
+            Promise.all(uploadedImages.map(img => uploadImage(id, img, authToken)))
+            .catch((e) => {
+                console.error("Error during uploading image\n" +
                     JSON.stringify(e));
-            }).finally(()=>{updateList()})
-        }
+            })
+        })
+        .finally(()=>{updateList()})
     }
 
     return (
@@ -128,10 +134,11 @@ const CarList = () => {
                 <CarEditor
                     car={details}
                     cancelHandler={() => setShowEditor(false)}
-                    saveHandler={(car, file) => {
-                        handleSave(car, file);
+                    saveHandler={(car, uploadedImages, imgsToDelete) => {
+                        handleSave(car, uploadedImages, imgsToDelete);
                         setShowEditor(false)
-                    }}/>
+                    }}
+                />
             </PureModal>
 
             <PureModal
@@ -143,15 +150,16 @@ const CarList = () => {
                 isOpen={showNew}
             >
                 <CarEditor
-                    cancelHandler={() => setShowNew(false)}
-                    saveHandler={(car, file) => {
-                        handleSaveNew(car, file);
-
-                        setShowNew(false)
-                    }}/>
+                    cancelHandler={() => setShowEditor(false)}
+                    saveHandler={(car, uploadedImages) => {
+                        handleSaveNew(car, uploadedImages);
+                        setShowEditor(false)
+                    }}
+                />
+                    
             </PureModal>
 
-            {/*<button onClick={() => setShowNew(true)}>New Car</button>*/}
+            {<button onClick={() => setShowNew(true)}>New Car</button>}
             <div className="car-list">
                 {cars.map((car) => {
                         return (
