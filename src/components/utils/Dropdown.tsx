@@ -13,9 +13,9 @@ const Dropdown = (props : NewCarPlaceholderProps) => {
     return (
         <div className={"dropdown"}>
             <button
-                className={"drop-button " + (dropped ? "drop-button-dropped" : "")}
+                className={"flex-col flex-a-center flex-j-center pt-10 drop-button " + (dropped ? "drop-button-dropped" : "")}
                 onClick={() => {setDropped(!dropped)}}>
-                <p className={"button-content"}>{props.name}</p>
+                <p className={"mb-20"}>{props.name}</p>
                 <RiArrowDropDownFill className={"icon button-content"} />
             </button>
             <div className={""}>

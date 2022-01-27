@@ -56,15 +56,15 @@ const NavigationBar = () => {
                 <input onChange={(e) => {
                     setSearchPhrase(e.target.value)
                 }}/>
-                <button onClick={search}>
+                <button className="s-20 text-center bg-transparent flex-row flex-ac-center color-white" onClick={search}>
                     <RiSearchLine className={"icon"}/>
                 </button>
-                <button onClick={() => {
+                <button className="text-white text-center bg-transparent" onClick={() => {
                     setNewCarVisible(!newCarVisible)
                 }}>
                     New Car
                 </button>
-                <button onClick={() => navigate("bookings")}>
+                <button className="text-white text-center bg-transparent" onClick={() => navigate("bookings")}>
                     Bookings
                 </button>
                 <div className={"popup-content " + (newCarVisible ? "popup-content-shown" : "")}>
