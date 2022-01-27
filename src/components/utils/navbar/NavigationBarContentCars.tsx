@@ -41,7 +41,7 @@ const NavigationBar = () => {
     return (
         <>
             <div className="nav-content">
-                <div className={"align-left"}>
+                <div className={"flex-row"}>
                     <Dropdown
                         content={(close: Function) => {
                             return <CarsFilter close={close} submit={submitFilters}/>
@@ -59,18 +59,18 @@ const NavigationBar = () => {
                 <button className="s-20 text-center bg-transparent flex-row flex-ac-center color-white" onClick={search}>
                     <RiSearchLine className={"icon"}/>
                 </button>
-                <button className="text-white text-center bg-transparent" onClick={() => {
+                <button className="text-white text-center bg-transparent w-60 flex-row flex-j-center" onClick={() => {
                     setNewCarVisible(!newCarVisible)
                 }}>
                     New Car
                 </button>
-                <button className="text-white text-center bg-transparent" onClick={() => navigate("bookings")}>
+                <button className="text-white text-center bg-transparent w-60 flex-row flex-j-center" onClick={() => navigate("bookings")}>
                     Bookings
                 </button>
                 <div className={"popup-content " + (newCarVisible ? "popup-content-shown" : "")}>
                     <NewCarPlaceholder close={closeNewCar}/>
                 </div>
-                <div className="align-right">
+                <div className="a-right">
 
                     <RiUserLine className="icon" onClick={() => logOut()}/>
                 </div>

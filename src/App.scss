@@ -21,28 +21,28 @@ p {
   margin: 0;
 }
 
-.nav{
+.nav {
   display: flex;
   flex-direction: row;
   height: 60px;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  background-color: #1E5128;
+  background-color: #1e5128;
   color: #ffffff;
 }
 
-.nav-content{
+.nav-content {
   display: flex;
   flex-direction: row;
   height: 60px;
   justify-content: space-between;
   align-items: center;
   width: 60%;
-  background-color: #1E5128;
+  background-color: #1e5128;
   color: #ffffff;
 }
 
-.align-left{
+.align-left {
   display: flex;
   flex-direction: row;
   height: 60px;
@@ -52,7 +52,7 @@ p {
   padding-left: 10px;
 }
 
-.align-right{
+.align-right {
   display: flex;
   flex-direction: row;
   height: 60px;
@@ -62,7 +62,7 @@ p {
   padding-right: 10px;
 }
 
-.icon{
+.icon {
   font-size: 20px;
 }
 
@@ -100,42 +100,68 @@ input {
   outline: none;
 }
 
-#root > div > div.pure-modal-backdrop > div > div > div.panel-body.scrollable > div > div > div > div > div.image-gallery-swipe > div > div.image-gallery-slide.center > img{
+#root
+  > div
+  > div.pure-modal-backdrop
+  > div
+  > div
+  > div.panel-body.scrollable
+  > div
+  > div
+  > div
+  > div
+  > div.image-gallery-swipe
+  > div
+  > div.image-gallery-slide.center
+  > img {
   width: 80%;
   height: 200px;
 }
 
-#root > div > div.pure-modal-backdrop > div{
+#root > div > div.pure-modal-backdrop > div {
   width: 600px;
   height: 700px;
   border-radius: 30px;
-  background-color: #FFF;
+  background-color: #fff;
   padding-left: 20px;
 }
 
-#root > div > div.pure-modal-backdrop > div > div > div.panel-heading, #root > div > div.pure-modal-backdrop > div > div > div.panel-body.scrollable{
+#root > div > div.pure-modal-backdrop > div > div > div.panel-heading,
+#root > div > div.pure-modal-backdrop > div > div > div.panel-body.scrollable {
   border-radius: 30px;
-  background-color: #FFF;
+  background-color: #fff;
   padding-left: 20px;
 }
 
-.as-end{
+.as-end {
   align-self: flex-end;
 }
 
-.as-start{
+.as-start {
   align-self: flex-start;
 }
 
-.pagination{
+.pagination {
   width: 250px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-li{
+li {
   list-style-type: none;
+}
+
+.a-left {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.a-right {
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
 
 $colors: (
@@ -159,35 +185,27 @@ $colors: (
 );
 
 @mixin attr-x($attr, $unit: "1%", $attr-count: 10, $attr-steps: 10) {
-  @for $i from 0 through $attr-count +1 {
+  @for $i from 0 through $attr-count + 1 {
     $attr-value: $attr-steps * $i;
     $name: str-slice($attr, 1, 1);
     @if $attr == "font-size" {
-        $name: "s";
-    }
-    @else if $attr == "margin-top" {
-        $name: "mt";
-    }
-    @else if $attr == "margin-right" {
-        $name: "mr";
-    }
-    @else if $attr == "margin-bottom" {
-        $name: "mb";
-    }
-    @else if $attr == "margin-left" {
-        $name: "ml";
-    }
-    @else if $attr == "padding-top" {
-        $name: "pt";
-    }
-    @else if $attr == "padding-right" {
-        $name: "pr";
-    }
-    @else if $attr == "padding-bottom" {
-        $name: "pb";
-    }
-    @else if $attr == "padding-left" {
-        $name: "pl";
+      $name: "s";
+    } @else if $attr == "margin-top" {
+      $name: "mt";
+    } @else if $attr == "margin-right" {
+      $name: "mr";
+    } @else if $attr == "margin-bottom" {
+      $name: "mb";
+    } @else if $attr == "margin-left" {
+      $name: "ml";
+    } @else if $attr == "padding-top" {
+      $name: "pt";
+    } @else if $attr == "padding-right" {
+      $name: "pr";
+    } @else if $attr == "padding-bottom" {
+      $name: "pb";
+    } @else if $attr == "padding-left" {
+      $name: "pl";
     }
     .#{$name}-#{$attr-value} {
       #{$attr}: #{$attr-value}#{$unit};
@@ -250,12 +268,12 @@ $text-positions: (left, right, center, justify);
 }
 
 @mixin textcolors() {
-    @each $name, $hex in $colors {
-      .color-#{$name} {
-        color: unquote($hex);
-      }
+  @each $name, $hex in $colors {
+    .color-#{$name} {
+      color: unquote($hex);
     }
   }
+}
 
 @mixin colors($attribute: "color") {
   @each $name, $hex in $colors {

@@ -28,7 +28,7 @@ const NavigationBar = () => {
     return (
         <>
             <div className="nav-content">
-                <div className="align-left">
+                <div className="">
                     <Dropdown
                         content={(close: Function) => {
                             return <BookingsSort close={close} submit={submitSort}/>
@@ -50,7 +50,7 @@ const NavigationBar = () => {
                 </div>
 
             </div>
-            <div className="align-right">
+            <div className="a-right">
                 <RiUserLine className="icon" onClick={() => logOut()}/>
             </div>
         </>
