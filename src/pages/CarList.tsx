@@ -119,22 +119,7 @@ const CarList = () => {
       });
   };
 
-  const handleSaveNew = (car: Car, uploadedImages: File[]) => {
-    addCar(car, authToken)
-      .catch((e) => {
-        console.error("Error during adding the car\n" + JSON.stringify(e));
-      })
-      .then((id) => {
-        Promise.all(
-          uploadedImages.map((img) => uploadImage(id, img, authToken))
-        ).catch((e) => {
-          console.error("Error during uploading image\n" + JSON.stringify(e));
-        });
-      })
-      .finally(() => {
-        updateList();
-      });
-  };
+
 
   return (
     <div>
@@ -171,24 +156,6 @@ const CarList = () => {
         />
       </PureModal>
 
-      <PureModal
-        header="New car"
-        onClose={() => {
-          handleClose(setShowNew);
-          return true;
-        }}
-        isOpen={showNew}
-      >
-        <CarEditor
-          cancelHandler={() => setShowEditor(false)}
-          saveHandler={(car, uploadedImages) => {
-            handleSaveNew(car, uploadedImages);
-            setShowEditor(false);
-          }}
-        />
-      </PureModal>
-
-      {<button onClick={() => setShowNew(true)}>New Car</button>}
       <div className="flex-row wrap flex-j-center flex-ac-start col-gap-30 pt-30">
         {cars.map((car) => {
           return (

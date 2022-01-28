@@ -8,13 +8,17 @@ import useGet from "../../../modules/useGet";
 import useLogin from "../../../modules/useLogin";
 import Dropdown from "../Dropdown";
 import CarsFilter from "./CarsFilter";
+import CarEditor from "../../car/CarEditor";
+import PureModal from "react-pure-modal";
+import {Car} from "../../../objects/Car";
+import {addCar, uploadImage} from "../../../logic/api";
 
 const NavigationBar = () => {
   const query = new URLSearchParams(useLocation().search);
 
   const navigate = useNavigate();
   const { updateParam, refreshPath } = useGet("cars");
-  const { logOut } = useLogin();
+  const { logOut, authToken } = useLogin();
   const [newCarVisible, setNewCarVisible] = useState(false);
   const [searchPhrase, setSearchPhrase] = useState(
     query.has("search") ? query.get("search") : ""
@@ -34,6 +38,23 @@ const NavigationBar = () => {
   const submitSort = (criterion: string, direction: string) => {
     updateParam(criterion + "_sort", direction, query);
     refreshPath(navigate, query);
+  };
+
+  const handleSaveNew = (car: Car, uploadedImages: File[]) => {
+    addCar(car, authToken)
+        .catch((e) => {
+          console.error("Error during adding the car\n" + JSON.stringify(e));
+        })
+        .then((id) => {
+          Promise.all(
+              uploadedImages.map((img) => uploadImage(id, img, authToken))
+          ).catch((e) => {
+            console.error("Error during uploading image\n" + JSON.stringify(e));
+          });
+        })
+        .finally(() => {
+          navigate("/cars");
+        });
   };
 
   const closeNewCar = () => {
@@ -84,17 +105,26 @@ const NavigationBar = () => {
         >
           Bookings
         </button>
-        <div
-          className={
-            "popup-content " + (newCarVisible ? "popup-content-shown" : "")
-          }
-        >
-          <NewCarPlaceholder close={closeNewCar} />
-        </div>
         <div className="a-right">
           <RiUserLine className="icon" onClick={() => logOut()} />
         </div>
       </div>
+      <PureModal
+          header="New car"
+          onClose={() => {
+            setNewCarVisible(false);
+            return true;
+          }}
+          isOpen={newCarVisible}
+      >
+        <CarEditor
+            cancelHandler={() => setNewCarVisible(false)}
+            saveHandler={(car, uploadedImages) => {
+              handleSaveNew(car, uploadedImages);
+              setNewCarVisible(false);
+            }}
+        />
+      </PureModal>
     </>
   );
 };
