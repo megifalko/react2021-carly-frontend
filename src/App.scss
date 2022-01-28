@@ -16,7 +16,8 @@ h3,
 h4,
 h5,
 h6,
-p {
+p,
+input {
   font-family: Poppins;
   margin: 0;
 }
@@ -161,6 +162,14 @@ li {
   position: absolute;
   top: 20px;
   right: 20px;
+}
+
+.full-height{
+  height: calc(100vh - 60px);
+}
+
+.bold{
+  font-weight: 800;
 }
 
 $colors: (

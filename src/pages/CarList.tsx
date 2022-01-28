@@ -189,7 +189,7 @@ const CarList = () => {
       </PureModal>
 
       {<button onClick={() => setShowNew(true)}>New Car</button>}
-      <div className="flex-row wrap flex-j-center flex-ac-start col-gap-30 mt-60 pt-30">
+      <div className="flex-row wrap flex-j-center flex-ac-start col-gap-30 pt-30">
         {cars.map((car) => {
           return (
             <CarListItem
