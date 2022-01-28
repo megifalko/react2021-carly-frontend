@@ -16,32 +16,33 @@ h3,
 h4,
 h5,
 h6,
-p {
+p,
+input {
   font-family: Poppins;
+  margin: 0;
 }
 
-.nav{
+.nav {
+  display: flex;
+  flex-direction: row;
+  height: 60px;
+  justify-content: center;
+  align-items: center;
+  background-color: #1e5128;
+  color: #ffffff;
+}
+
+.nav-content {
   display: flex;
   flex-direction: row;
   height: 60px;
   justify-content: space-between;
   align-items: center;
-  background-color: #1E5128;
+  background-color: #1e5128;
   color: #ffffff;
 }
 
-.nav-content{
-  display: flex;
-  flex-direction: row;
-  height: 60px;
-  justify-content: space-between;
-  align-items: center;
-  width: 60%;
-  background-color: #1E5128;
-  color: #ffffff;
-}
-
-.align-left{
+.align-left {
   display: flex;
   flex-direction: row;
   height: 60px;
@@ -51,7 +52,7 @@ p {
   padding-left: 10px;
 }
 
-.align-right{
+.align-right {
   display: flex;
   flex-direction: row;
   height: 60px;
@@ -61,6 +62,300 @@ p {
   padding-right: 10px;
 }
 
-.icon{
-  font-size: 30px;
+.icon {
+  font-size: 20px;
 }
+
+.car {
+  &-img {
+    width: 250px;
+    height: auto;
+  }
+  &-icon {
+    height: 80px;
+    width: 80px;
+    color: #1e5128;
+  }
+}
+
+button,
+input {
+  outline: none;
+  border: none;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+.col-gap-30 {
+  column-gap: 30px;
+}
+
+.no-border {
+  border: none;
+}
+
+.no-outline {
+  outline: none;
+}
+
+#root
+  > div
+  > div.pure-modal-backdrop
+  > div
+  > div
+  > div.panel-body.scrollable
+  > div
+  > div
+  > div
+  > div
+  > div.image-gallery-swipe
+  > div
+  > div.image-gallery-slide.center
+  > img {
+  width: 80%;
+  height: 200px;
+}
+
+#root > div > div.pure-modal-backdrop > div {
+  width: 600px;
+  height: 700px;
+  border-radius: 30px;
+  background-color: #fff;
+  padding-left: 20px;
+}
+
+#root > div > div.pure-modal-backdrop > div > div > div.panel-heading,
+#root > div > div.pure-modal-backdrop > div > div > div.panel-body.scrollable {
+  border-radius: 30px;
+  background-color: #fff;
+  padding-left: 20px;
+}
+
+.as-end {
+  align-self: flex-end;
+}
+
+.as-start {
+  align-self: flex-start;
+}
+
+.pagination {
+  width: 250px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+li {
+  list-style-type: none;
+}
+
+.a-left {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.a-right {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.full-height{
+  height: calc(100vh - 60px);
+}
+
+.bold{
+  font-weight: 800;
+}
+
+$colors: (
+  c1: "#D8E9A8",
+  c2: "#4E9F3D",
+  c3: "#1E5128",
+  c4: "#F6F6F7",
+  c5: "#191A19",
+  c6: "#212121",
+  c7: "#7d8ea3",
+  c8: "#E5E5E5",
+  c9: "#C00D0D",
+  white: "#FFFFFF",
+  dark: "#191A19",
+  black: "#000000",
+  lgreen: "#D8E9A8",
+  mgreen: "#4E9F3D",
+  dgreen: "#1E5128",
+  red: "#990000",
+  transparent: "#00000000",
+);
+
+@mixin attr-x($attr, $unit: "1%", $attr-count: 10, $attr-steps: 10) {
+  @for $i from 0 through $attr-count + 1 {
+    $attr-value: $attr-steps * $i;
+    $name: str-slice($attr, 1, 1);
+    @if $attr == "font-size" {
+      $name: "s";
+    } @else if $attr == "margin-top" {
+      $name: "mt";
+    } @else if $attr == "margin-right" {
+      $name: "mr";
+    } @else if $attr == "margin-bottom" {
+      $name: "mb";
+    } @else if $attr == "margin-left" {
+      $name: "ml";
+    } @else if $attr == "padding-top" {
+      $name: "pt";
+    } @else if $attr == "padding-right" {
+      $name: "pr";
+    } @else if $attr == "padding-bottom" {
+      $name: "pb";
+    } @else if $attr == "padding-left" {
+      $name: "pl";
+    }
+    .#{$name}-#{$attr-value} {
+      #{$attr}: #{$attr-value}#{$unit};
+    }
+  }
+}
+
+$justify-positions: (
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  around: space-around,
+  between: space-between,
+  evenly: space-evenly,
+);
+
+$align-positions: (
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  stretch: stretch,
+  baseline: baseline,
+);
+
+$align-content-positions: (
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  around: space-around,
+  between: space-between,
+  evenly: space-evenly,
+);
+
+$row-col: (
+  row: row,
+  col: column,
+);
+
+$text-positions: (left, right, center, justify);
+
+@mixin flex-row-col($arr) {
+  @each $mod, $dir in $arr {
+    &-#{$mod} {
+      display: flex;
+      flex-direction: #{$dir};
+    }
+  }
+}
+
+@mixin just-align($name, $prop, $arr) {
+  $n: str-slice($name, 1, 1);
+  @if $name == "align-content" {
+    $n: "ac";
+  }
+  @each $mod, $dir in $arr {
+    &-#{$n}-#{$mod} {
+      #{$prop}: #{$dir};
+    }
+  }
+}
+
+@mixin textcolors() {
+  @each $name, $hex in $colors {
+    .color-#{$name} {
+      color: unquote($hex);
+    }
+  }
+}
+
+@mixin colors($attribute: "color") {
+  @each $name, $hex in $colors {
+    &-#{$name} {
+      #{$attribute}: unquote($hex);
+    }
+  }
+}
+
+@mixin alignment() {
+  @each $name in $text-positions {
+    &-#{$name} {
+      text-align: unquote($name);
+    }
+  }
+}
+
+@mixin radius() {
+  @for $i from 1 through 20 {
+    $attr-value: 5 * $i;
+    &-radius-#{$attr-value} {
+      border-radius: #{$attr-value}#{px};
+    }
+  }
+}
+
+@mixin weight() {
+  @for $i from 1 through 9 {
+    $attr-value: 100 * $i;
+    &-weight-#{$attr-value} {
+      font-weight: #{$attr-value};
+    }
+  }
+}
+
+.font {
+  @include weight();
+}
+
+.text {
+  @include colors();
+  @include alignment();
+}
+
+.bg {
+  @include colors("background-color");
+}
+
+.border {
+  @include radius();
+}
+
+.flex {
+  @include flex-row-col($row-col);
+  @include just-align("align", "align-items", $align-positions);
+  @include just-align("justify", "justify-content", $justify-positions);
+  @include just-align(
+    "align-content",
+    "align-content",
+    $align-content-positions
+  );
+}
+
+@include attr-x("width", "px", 100, 10);
+@include attr-x("height", "px", 100, 10);
+@include attr-x("font-size", "px", 50, 1);
+@include attr-x("margin", "px", 20, 5);
+@include attr-x("margin-top", "px", 20, 5);
+@include attr-x("margin-bottom", "px", 20, 5);
+@include attr-x("margin-left", "px", 20, 5);
+@include attr-x("margin-right", "px", 20, 5);
+@include attr-x("padding", "px", 20, 5);
+@include attr-x("padding-top", "px", 20, 5);
+@include attr-x("padding-bottom", "px", 20, 5);
+@include attr-x("padding-left", "px", 20, 5);
+@include attr-x("padding-right", "px", 20, 5);
+@include textcolors();

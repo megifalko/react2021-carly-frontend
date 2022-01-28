@@ -28,7 +28,7 @@ const NavigationBar = () => {
     return (
         <>
             <div className="nav-content">
-                <div className="align-left">
+                <div className="">
                     <Dropdown
                         content={(close: Function) => {
                             return <BookingsSort close={close} submit={submitSort}/>
@@ -38,7 +38,7 @@ const NavigationBar = () => {
                 <input onChange={(e) => {
                     setSearchPhrase(e.target.value)
                 }}/>
-                <button onClick={search}>
+                <button className="s-20 text-center bg-transparent flex-row flex-ac-center color-white" onClick={search}>
                     <RiSearchLine className={"icon"}/>
                 </button>
                 <div className={"align-right"}>
@@ -50,7 +50,7 @@ const NavigationBar = () => {
                 </div>
 
             </div>
-            <div className="align-right">
+            <div className="a-right">
                 <RiUserLine className="icon" onClick={() => logOut()}/>
             </div>
         </>
