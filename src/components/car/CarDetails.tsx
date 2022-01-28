@@ -35,33 +35,37 @@ const CarDetails: React.FC<CarDetailsProps> = (props) => {
   });
 
   return (
-    <div className="flex-col">
-      <p>Brand</p>
-      <h2>{props.car.brand}</h2>
-
-      <p>Model</p>
-      <h2>{props.car.model}</h2>
-
-      <ImageGallery
-        items={carImages}
-        showFullscreenButton={false}
-        showPlayButton={false}
-        showBullets={true}
-      />
-
-      <p>Year</p>
-      <h3>{props.car.year}</h3>
-
-      <p>Engine</p>
-      <h3>{props.car.engine}</h3>
-
-      <p>Location</p>
-      <h3>{props.car.location}</h3>
-
-      <p>Price</p>
-      <h2>{props.car.price}</h2>
-      <span>/day</span>
-      <div className="flex-row flex-j-center">
+    <>
+      <div className="flex-row w-600">
+        <div className="flex-col w-250 pl-10">
+          <p className="m-0">Brand</p>
+          <h2 className="m-0">{props.car.brand}</h2>
+          <div className="flex-row flex-j-between pr-20 mt-10">
+            <p className="m-0">Model</p>
+            <p className="m-0">Year</p>
+          </div>
+          <div className="flex-row flex-j-between pr-20">
+            <h2 className="m-0">{props.car.model}</h2>
+            <h2 className="m-0">{props.car.year}</h2>
+          </div>
+          <p className="m-0 mt-50">Engine</p>
+          <h3 className="m-0">{props.car.engine}</h3>
+          <p className="m-0 mt-5">Location</p>
+          <h3 className="m-0">{props.car.location}</h3>
+        </div>
+        <div className="flex-col w-350 flex-j-between">
+          {" "}
+          <ImageGallery
+            items={carImages}
+            showFullscreenButton={false}
+            showPlayButton={false}
+            showBullets={true}
+          />
+          <h2 className="as-end pr-10">$ {props.car.price}</h2>
+          <span className="as-end pr-10">/day</span>
+        </div>
+      </div>
+      <div className="flex-row flex-j-center mt-40">
         <button
           className="bg-c9 w-220 h-50 border-radius-75 s-28 text-center font-weight-700 color-white no-border mr-10"
           onClick={(_) => props.deleteHandler()}
@@ -75,7 +79,7 @@ const CarDetails: React.FC<CarDetailsProps> = (props) => {
           Edit
         </button>
       </div>
-    </div>
+    </>
   );
 };
 

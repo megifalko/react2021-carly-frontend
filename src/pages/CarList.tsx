@@ -124,7 +124,7 @@ const CarList = () => {
   return (
     <div>
       <PureModal
-        header="Car details"
+        header=""
         onClose={() => {
           handleClose(setShowDetails);
           return true;

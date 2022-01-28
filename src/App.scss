@@ -124,20 +124,55 @@ input {
   > div
   > div.image-gallery-slide.center
   > img {
-  width: 80%;
+  width: 250px;
   height: 200px;
 }
 
+.image-gallery-content .image-gallery-slide .image-gallery-image{
+  height: 200px;
+}
+
+#root > div > div.pure-modal-backdrop > div > div > div.panel-body.scrollable > div.flex-row.w-600 > div.flex-col.w-400 > div > div > div > div.image-gallery-swipe{
+  display: flex;
+  height: 200px;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+#root > div > div.pure-modal-backdrop > div > div > div.panel-body.scrollable > div.flex-row.w-600 > div.flex-col.w-400 > div > div > div > div.image-gallery-swipe > div > div.image-gallery-slide.center > img{
+  width: 250px;
+  max-height: 200px;
+  
+}
+
 #root > div > div.pure-modal-backdrop > div {
-  width: 600px;
-  height: 700px;
+  width: 700px;
   border-radius: 30px;
   background-color: #fff;
-  padding-left: 20px;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: space-between;
+}
+
+.image-gallery-left-nav .image-gallery-svg, .image-gallery-right-nav .image-gallery-svg{
+  height: 50px;
+  width: 20px;
+}
+
+#root > div > div.pure-modal-backdrop > div > div > div.close{
+  background-color: transparent;
+  font-size: 30px;
+  color: black;
 }
 
 #root > div > div.pure-modal-backdrop > div > div > div.panel-heading,
 #root > div > div.pure-modal-backdrop > div > div > div.panel-body.scrollable {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   border-radius: 30px;
   background-color: #fff;
   padding-left: 20px;
