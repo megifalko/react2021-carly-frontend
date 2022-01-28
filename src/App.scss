@@ -21,6 +21,16 @@ input {
   font-family: Poppins;
   margin: 0;
 }
+button{
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+.btn-close{
+  position: absolute;
+  right: 10px;
+}
 
 .nav {
   display: flex;
@@ -139,6 +149,14 @@ input {
 
 .as-start {
   align-self: flex-start;
+}
+
+.as-center{
+  align-self: center;
+}
+
+.input-border{
+  border: 3px solid #4e9f3d
 }
 
 .pagination {

@@ -16,16 +16,16 @@ const CarsFilter = (props : CarsFilterProps) => {
         props.close();
     }
     return (
-        <form>
-            <button onClick={() => {props.close()}} type={'button'}>
+        <form className="flex-col flex-ac-center flex-a-start p-20 w-200">
+            <button onClick={() => {props.close()}} type={'button'} className="bg-transparent btn-close">
                 <RiCloseLine className="icon" />
             </button>
             <b>Filter by...</b>
             <p>Pickup location</p>
-            <input onChange={(e) => {setLocation(e.target.value)}}/>
+            <input onChange={(e) => {setLocation(e.target.value)}} className="input-border"/>
             <p>Model</p>
-            <input onChange={(e) => {setModel(e.target.value)}}/>
-            <button type={"button"} onClick={submitForm}>
+            <input onChange={(e) => {setModel(e.target.value)}} className="input-border"/>
+            <button type={"button"} onClick={submitForm} className="text-white border-radius-30 w-100 h-30 s-14 m-10 bg-c2 as-center font-weight-700">
                 Apply
             </button>
         </form>

@@ -19,7 +19,7 @@ const Dropdown = (props : NewCarPlaceholderProps) => {
                 <RiArrowDropDownFill className={"icon button-content"} />
             </button>
             <div className={""}>
-                <div className={" dropdown-content " + (dropped ? "dropdown-content-dropped" : "")}>
+                <div className={" border-radius-30 dropdown-content " + (dropped ? "dropdown-content-dropped" : "")}>
                     {props.content(() => setDropped(false))}
                 </div>
             </div>
