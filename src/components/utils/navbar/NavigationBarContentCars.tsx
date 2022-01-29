@@ -125,7 +125,7 @@ const NavigationBar = () => {
         </div>
       </div>
       <PureModal
-          header="New car"
+          header=""
           onClose={() => {
             setNewCarVisible(false);
             return true;
