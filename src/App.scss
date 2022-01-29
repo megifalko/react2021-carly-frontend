@@ -225,6 +225,15 @@ li {
   font-weight: 800;
 }
 
+.relative{
+  position: relative;
+}
+
+.btn-del{
+  position: absolute;
+  right: 65px
+}
+
 $colors: (
   c1: "#D8E9A8",
   c2: "#4E9F3D",
