@@ -38,6 +38,11 @@ const NavigationBar = () => {
     refreshPath(navigate, query);
   };
 
+  const clear = () => {
+    updateParam("search_text", "", query);
+    refreshPath(navigate, query);
+  };
+
   const submitSort = (criterion: string, direction: string) => {
     updateParam(criterion + "_sort", direction, query);
     refreshPath(navigate, query);
@@ -85,10 +90,11 @@ const NavigationBar = () => {
             onChange={(e) => {
               setSearchPhrase(e.target.value);
             }}
+            value={searchPhrase ? searchPhrase : ""}
           />
           <button
             className="s-20 text-center bg-transparent flex-row flex-ac-center color-black btn-del"
-            onClick={search}
+            onClick={()=>{setSearchPhrase(""); clear()}}
           >
             <IoCloseOutline className={"icon"} />
           </button>
