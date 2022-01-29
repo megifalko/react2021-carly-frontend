@@ -12,6 +12,9 @@ import CarEditor from "../../car/CarEditor";
 import PureModal from "react-pure-modal";
 import {Car} from "../../../objects/Car";
 import {addCar, uploadImage} from "../../../logic/api";
+import {HiOutlinePlusSm} from 'react-icons/hi'
+import {IoIosArrowForward} from 'react-icons/io'
+import {IoCloseOutline} from 'react-icons/io5'
 
 const NavigationBar = () => {
   const query = new URLSearchParams(useLocation().search);
@@ -32,6 +35,11 @@ const NavigationBar = () => {
 
   const search = () => {
     updateParam("search_text", searchPhrase ?? "", query);
+    refreshPath(navigate, query);
+  };
+
+  const clear = () => {
+    updateParam("search_text", "", query);
     refreshPath(navigate, query);
   };
 
@@ -63,7 +71,7 @@ const NavigationBar = () => {
   return (
     <>
       <div className="nav-content">
-        <div className={"flex-row"}>
+        <div className={"flex-row pl-90"}>
           <Dropdown
             content={(close: Function) => {
               return <CarsFilter close={close} submit={submitFilters} />;
@@ -77,12 +85,19 @@ const NavigationBar = () => {
             name={"Sort"}
           />
         </div>
-        <div className="flex-row flex-j-center flex-a-center">
+        <div className="flex-row flex-j-center flex-a-center pl-30 pr-30 relative">
           <input className="w-300"
             onChange={(e) => {
               setSearchPhrase(e.target.value);
             }}
+            value={searchPhrase ? searchPhrase : ""}
           />
+          <button
+            className="s-20 text-center bg-transparent flex-row flex-ac-center color-black btn-del"
+            onClick={()=>{setSearchPhrase(""); clear()}}
+          >
+            <IoCloseOutline className={"icon"} />
+          </button>
           <button
             className="s-20 text-center bg-transparent flex-row flex-ac-center color-white"
             onClick={search}
@@ -92,25 +107,25 @@ const NavigationBar = () => {
         </div>
 
         <button
-          className="text-white text-center bg-transparent w-60 flex-row flex-j-center"
+          className="text-white text-center bg-transparent w-110 flex-row flex-j-center s-16 flex-row flex-a-center p-10"
           onClick={() => {
             setNewCarVisible(!newCarVisible);
           }}
         >
-          New Car
+          New Car  <HiOutlinePlusSm className="icon"/>
         </button>
         <button
-          className="text-white text-center bg-transparent w-60 flex-row flex-j-center"
+          className="text-white text-center bg-transparent w-110 flex-row flex-j-center flex-a-center s-16 p-10"
           onClick={() => navigate("bookings")}
         >
-          Bookings
+          Bookings  <IoIosArrowForward className="icon"/>
         </button>
         <div className="a-right">
           <RiUserLine className="icon" onClick={() => logOut()} />
         </div>
       </div>
       <PureModal
-          header="New car"
+          header=""
           onClose={() => {
             setNewCarVisible(false);
             return true;

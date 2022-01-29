@@ -146,6 +146,17 @@ input {
   
 }
 
+#root > nav > div.pure-modal-backdrop > div{
+  width: 700px;
+  border-radius: 30px;
+  background-color: #fff;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: space-between;
+}
+
 #root > div > div.pure-modal-backdrop > div {
   width: 700px;
   border-radius: 30px;
@@ -161,8 +172,7 @@ input {
   height: 50px;
   width: 20px;
 }
-
-#root > div > div.pure-modal-backdrop > div > div > div.close{
+#root > nav > div.pure-modal-backdrop > div > div > div.close, #root > div > div.pure-modal-backdrop > div > div > div.close{
   background-color: transparent;
   font-size: 30px;
   color: black;
@@ -223,6 +233,19 @@ li {
 
 .bold{
   font-weight: 800;
+}
+
+.relative{
+  position: relative;
+}
+
+.btn-del{
+  position: absolute;
+  right: 65px
+}
+
+.upload{
+  border-radius: 0;
 }
 
 $colors: (
