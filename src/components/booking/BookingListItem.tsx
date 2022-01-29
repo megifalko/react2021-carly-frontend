@@ -10,12 +10,12 @@ interface BookingListItemProps {
 
 const BookingListItem: React.FC<BookingListItemProps> = (props: BookingListItemProps) => {
     return (
-    <>
+    <div className="flex-col flex-j-between flex-a-start border-radius-30 w-800 h-200 bg-white mb-20 p-30">
         <p>Start date: {props.booking.startDate.toString()}</p>
         <p>Booking active: {props.booking.active.toString()}</p>
         <img/>
         <button onClick={() => props.onShowDetails(props.booking)}>Details</button>
-    </>
+    </div>
   );
 };
 

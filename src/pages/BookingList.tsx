@@ -23,9 +23,7 @@ const BookingList = () => {
     const handleClose = () => setShow(false)
 
     return (
-        <>
-            <h1>Booking list</h1>
-
+        <div className="flex-row wrap flex-j-center flex-ac-start col-gap-30 pt-30">
             <PureModal
                 header="Booking details"
                 onClose={() => {
@@ -40,7 +38,7 @@ const BookingList = () => {
             <BookingListItem booking={defaultBooking} onShowDetails={handleShow}/>
             <BookingListItem booking={defaultBooking} onShowDetails={handleShow}/>
             <BookingListItem booking={defaultBooking} onShowDetails={handleShow}/>
-        </>
+        </div>
     );
 };
 
