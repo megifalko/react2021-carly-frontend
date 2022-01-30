@@ -80,6 +80,8 @@ button{
   &-img {
     width: 250px;
     height: auto;
+    max-height: 250px;
+    object-fit: contain;
   }
   &-icon {
     height: 80px;
@@ -108,6 +110,16 @@ input {
 
 .no-outline {
   outline: none;
+}
+
+.text-green{
+  color: #1E5128;
+  font-weight: 300;
+}
+
+.upload{
+  max-height: 170px;
+  overflow-y: auto;
 }
 
 #root
@@ -155,6 +167,16 @@ input {
   flex-direction: column;
   justify-content: center;
   align-items: space-between;
+}
+
+#root > div > div:nth-child(2) > ul > li.page-item.active{
+  text-decoration: underline;
+}
+
+.page-link{
+  &:hover{
+    cursor: pointer;
+  }
 }
 
 #root > div > div.pure-modal-backdrop > div {
