@@ -3,6 +3,7 @@ import { Car } from "../../objects/Car";
 import { getImagesIds, imageUri } from "../../logic/api";
 import ImageGallery from "react-image-gallery";
 import useLogin from "../../modules/useLogin";
+import PureModal from "react-pure-modal";
 
 interface CarDetailsProps {
   car: Car;
@@ -13,6 +14,8 @@ interface CarDetailsProps {
 const CarDetails: React.FC<CarDetailsProps> = (props) => {
   const { authToken } = useLogin();
   const [imagesIds, setImagesIds] = useState<string[]>([]);
+  const [showDeletePrompt, setShowDeletePrompt] = useState(false);
+
 
   useEffect(() => {
     updateImagesIds();
@@ -36,6 +39,29 @@ const CarDetails: React.FC<CarDetailsProps> = (props) => {
 
   return (
     <>
+      <PureModal
+          header="Are you sure you want to delete?"
+          onClose={() => {
+            setShowDeletePrompt(false)
+            return true;
+          }}
+          isOpen={showDeletePrompt}
+      >
+        <>
+          <button
+              onClick={(_) => {setShowDeletePrompt(false); props.deleteHandler()}}
+              className="bg-c9 w-220 h-50 border-radius-75 s-28 text-center font-weight-700 color-white no-border mr-10"
+          >
+            Yes
+          </button>
+          <button
+              onClick={(_) => setShowDeletePrompt(false)}
+              className="bg-c2 w-220 h-50 border-radius-75 s-28 text-center font-weight-700 color-white no-border ml-10"
+          >
+            No
+          </button>
+        </>
+      </PureModal>
       <div className="flex-row w-600">
         <div className="flex-col w-250 pl-10">
           <p className="m-0">Brand</p>
@@ -68,7 +94,7 @@ const CarDetails: React.FC<CarDetailsProps> = (props) => {
       <div className="flex-row flex-j-center mt-40">
         <button
           className="bg-c9 w-220 h-50 border-radius-75 s-28 text-center font-weight-700 color-white no-border mr-10"
-          onClick={(_) => props.deleteHandler()}
+          onClick={(_) => setShowDeletePrompt(true)}
         >
           Delete
         </button>

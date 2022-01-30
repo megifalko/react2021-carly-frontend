@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Car } from "../../objects/Car";
 import "react-upload-gallery/dist/style.css";
 import "../../styles/CarEditor.css";
@@ -59,7 +59,7 @@ const CarEditor: React.FC<CarEditorProps> = ({
   const galleryItem = (image: string, id: Number, removeHandler: Function) => {
     return (
       <div key={image}>
-        <img src={image} className="img-preview" />
+        <img src={image} className="img-preview" alt="image preview"/>
         <button onClick={() => removeHandler(id)}>X</button>
       </div>
     );
@@ -158,6 +158,7 @@ const CarEditor: React.FC<CarEditorProps> = ({
           <p className="m-0 text-black">Price</p>
           <input
             className="input-border w-200"
+            type={"number"}
             defaultValue={car.price}
             onChange={(e) => updatePrice(Number(e.target.value))}
           />
