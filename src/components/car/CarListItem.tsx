@@ -28,7 +28,7 @@ const CarListItem: React.FC<CarListItemProps> = (props: CarListItemProps) => {
       });
   };
 
-  const carImage = imagesIds.length > 0 ? imageUri(imagesIds[0]) : "yaris.png";
+  const carImage = imagesIds.length > 0 ? imageUri(imagesIds[0]) : "https://www.downloadclipart.net/large/car-png-photos.png";
 
   return (
     <div className="flex-col flex-j-between flex-a-center border-radius-30 w-300 h-400 bg-white mb-20 pt-30 pb-30 pl-10 pr-10">
