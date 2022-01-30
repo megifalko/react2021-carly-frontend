@@ -112,6 +112,16 @@ input {
   outline: none;
 }
 
+.text-green{
+  color: #1E5128;
+  font-weight: 300;
+}
+
+.upload{
+  max-height: 170px;
+  overflow-y: auto;
+}
+
 #root
   > div
   > div.pure-modal-backdrop

@@ -58,7 +58,7 @@ const CarEditor: React.FC<CarEditorProps> = ({
 
   const galleryItem = (image: string, id: Number, removeHandler: Function) => {
     return (
-      <div key={image}>
+      <div className="image-upload" key={image}>
         <img src={image} className="img-preview" />
         <button onClick={() => removeHandler(id)}>X</button>
       </div>
@@ -105,18 +105,6 @@ const CarEditor: React.FC<CarEditorProps> = ({
           />
 
           <div>
-            {uploadedImages.map((img, id) =>
-              galleryItem(URL.createObjectURL(img), id, (id: Number) =>
-                setUploadedImages(
-                  uploadedImages.filter((img, imgId) => imgId != id)
-                )
-              )
-            )}
-            {imageIds.map((img, id) =>
-              galleryItem(imageUri(img), id, (id: Number) =>
-                setImageIds(imageIds.filter((img, imgId) => imgId != id))
-              )
-            )}
             <p className="m-0 text-black">Images</p>
             <input
               className="m-0 p-0 upload w-250 text-black mt-15"
@@ -127,6 +115,20 @@ const CarEditor: React.FC<CarEditorProps> = ({
                   setUploadedImages([...uploadedImages, event.target.files[0]]);
               }}
             />
+            <div className="upload">
+              {uploadedImages.map((img, id) =>
+                galleryItem(URL.createObjectURL(img), id, (id: Number) =>
+                  setUploadedImages(
+                    uploadedImages.filter((img, imgId) => imgId != id)
+                  )
+                )
+              )}
+              {imageIds.map((img, id) =>
+                galleryItem(imageUri(img), id, (id: Number) =>
+                  setImageIds(imageIds.filter((img, imgId) => imgId != id))
+                )
+              )}
+            </div>
           </div>
         </div>
         <div className="flex-col w-250 pl-10">
