@@ -80,6 +80,8 @@ button{
   &-img {
     width: 250px;
     height: auto;
+    max-height: 250px;
+    object-fit: contain;
   }
   &-icon {
     height: 80px;
@@ -155,6 +157,16 @@ input {
   flex-direction: column;
   justify-content: center;
   align-items: space-between;
+}
+
+#root > div > div:nth-child(2) > ul > li.page-item.active{
+  text-decoration: underline;
+}
+
+.page-link{
+  &:hover{
+    cursor: pointer;
+  }
 }
 
 #root > div > div.pure-modal-backdrop > div {

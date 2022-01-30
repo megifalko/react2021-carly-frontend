@@ -1,6 +1,6 @@
 import {Car} from "../objects/Car";
 
-const BASE_URL = '';
+const BASE_URL = 'https://pw2021-react-carly-backend.azurewebsites.net';
 
 export const getCars = async (securityToken: string) => {
 

@@ -1,5 +1,5 @@
 export default function () {
-    const BASE_URL = '';
+    const BASE_URL = 'https://pw2021-react-carly-backend.azurewebsites.net';
 
     const Authorize = async (login: string, password: string) => {
         return fetch(`${BASE_URL}/authenticate`,
