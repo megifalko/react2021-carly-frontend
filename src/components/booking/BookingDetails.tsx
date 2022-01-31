@@ -39,7 +39,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = (
         <p className="s-16">Start date</p>
         <h2 className="s-24 m-neg">{props.booking.startDate.toString().split("T")[0]}</h2>
 
-        <p className="s-16">Start date</p>
+        <p className="s-16">End date</p>
         <h2 className="s-24 m-neg">{props.booking.endDate.toString().split("T")[0]}</h2>
 
         <p className="s-16">Active:</p>
