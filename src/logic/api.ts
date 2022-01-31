@@ -168,6 +168,7 @@ export const getBookingsFiltered = async (securityToken: string, page: number, f
 }
 
 export const deactivateBooking = async (id: string, securityToken: string) => {
+    console.log(id, securityToken)
     return fetch(`${BASE_URL}/bookings/${id}`, //TODO not working problem with cors
         {
             method: "DELETE",
@@ -217,6 +218,7 @@ export const deleteImage = async (id: string, securityToken: string) => {
                 throw response;
             }
         })
+
 }
 
 export const imageUri = (imageId: string) => {

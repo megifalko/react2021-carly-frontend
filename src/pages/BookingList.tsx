@@ -18,7 +18,6 @@ const BookingList = () => {
     const [page, setPage] = useState(0);
     const [pageCount, setPageCount] = useState(0);
     const [isLoading, setLoading] = useState(false);
-    const [prevLocationString, setPrevLocationString] = useState("");
     const [details, setDetails] = useState<Booking>({
         active: false,
         carId: "",
@@ -38,23 +37,18 @@ const BookingList = () => {
         setShow(true);
     }
     const handleClose = () => setShow(false)
-    const handleCancel = (booking: Booking, securityToken: string) => {
-        deactivateBooking(booking.id, securityToken).catch((e) => {
+    const handleCancel = (booking: Booking) => {
+        deactivateBooking(booking.id, authToken).catch((e) => {
             console.error("Error during canceling the booking\n" +
                 JSON.stringify(e));
         })
+        updateList(page)
     }
     const updateList = (page: number) => {
         setLoading(true);
         getBookingsFiltered(authToken, page, location.search.substring(1)).then(data => {
-            if(prevLocationString !== location.search)
-            {
-                setPage(0);
-                setPrevLocationString(location.search);
-            }
             setBookings(data.data);
             setPageCount(data.pageCount);
-
         }).catch((e) => {
             console.error("Error during updating the bookings list \n" +
                 JSON.stringify(e));

@@ -21,12 +21,20 @@ const BookingListItem: React.FC<BookingListItemProps> = (
     });
   }, [props.booking.carId, authToken]);
   return (
-    <div className="flex-col flex-j-between border-radius-30 w-800 h-180 bg-white mb-20 p-30">
+      <div className="flex-col flex-j-between border-radius-30 w-800 h-250 bg-white mb-20 p-30">
       <div className="flex-row flex-j-center w-800">
         <div className="flex-col flex-a-start flex-j-center w-300">
           <img src={imageURL} alt="car" className="car-img" />
         </div>
-        <div className="flex-col flex-j-center flex-a-start w-250">
+        <div className="flex-col flex-j-center flex-a-center w-250">
+          <p className="model-header s-18 m-0 text-dark font-weight-400 as-start">
+            Customer:{" "}
+          </p>
+          <p className="font-weight-800 s-28 text-c6 m-0 as-start">
+            {(props.booking.customerFirstName ?? "") + " " + (props.booking.customerLastName ?? "") == " " ?
+            "-" :
+            (props.booking.customerFirstName ?? "") + " " + (props.booking.customerLastName ?? "")}
+          </p>
           <p className="model-header s-18 m-0 text-dark font-weight-400 as-start">
             Start date:{" "}
           </p>
