@@ -16,6 +16,7 @@ import {useLocation} from "react-router-dom";
 import "../styles/CarList.css";
 import ReactPaginate from "react-paginate";
 import Loader from "../components/utils/Loader";
+import NotFound from "./NotFound";
 
 const defaultCar: Car = {
     id: "",
@@ -81,12 +82,13 @@ const CarList = () => {
 
     const handleDelete = () => {
         deleteCar(details.id, authToken)
+            .then(()=>
+            {
+                updateList();
+            })
             .catch((e) => {
                 console.error("Error during deleting the car\n" + JSON.stringify(e));
             })
-            .finally(() => {
-                updateList();
-            });
         setShowDetails(false);
     };
 
@@ -163,7 +165,7 @@ const CarList = () => {
             </PureModal>
             {
                 loadingList ? (<Loader/>) : cars.length == 0 ?
-                    (<p>No cars have been found.</p>) :
+                    (<NotFound/>) :
                     (<>
                         <div className="flex-row wrap flex-j-center flex-ac-start col-gap-30 pt-30">
                             {cars.map((car) => {
