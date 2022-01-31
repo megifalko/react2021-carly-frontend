@@ -5,6 +5,7 @@ import "../styles/login.css";
 import useLogin from "../modules/useLogin";
 import useAuthorization from "../modules/useAuthorization";
 import {MdDirectionsCar} from 'react-icons/md'
+import Loader from "../components/utils/Loader";
 
 const Login = () => {
   const { logIn } = useLogin();
@@ -39,7 +40,7 @@ const Login = () => {
   return (
     <>
       {loading ? (
-        <p>loading</p>
+        <Loader/>
       ) : (
         <form
           className={"flex-col flex-a-center flex-j-center m-0 full-height"}
