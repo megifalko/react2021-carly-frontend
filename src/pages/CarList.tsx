@@ -36,6 +36,7 @@ const CarList = () => {
     const [details, setDetails] = useState<Car>(defaultCar);
     const [carsPerPage] = useState(8);
     const [page, setPage] = useState(0);
+    const [prevLocationString, setPrevLocationString] = useState("");
     const [pageCount, setPageCount] = useState(0);
     const [loadingList, setLoadingList] = useState(true);
 
@@ -46,6 +47,10 @@ const CarList = () => {
 
     const updateList = () => {
         setLoadingList(true)
+        if(prevLocationString !== location.search) {
+            setPage(0);
+            setPrevLocationString(location.search);
+        }
         getCarsWithParams(
             authToken,
             page,
