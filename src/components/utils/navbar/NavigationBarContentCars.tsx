@@ -127,8 +127,8 @@ const NavigationBar = () => {
                 >
                     Bookings <IoIosArrowForward className="icon"/>
                 </button>
-                <div className="a-right">
-                    <Dropdown content={() => <LogOut />} name={<RiUserLine className="icon"/>} />
+                <div className="logout">
+                    <Dropdown className="btn-logout" content={() => <LogOut />} name={<RiUserLine className="icon"/>} />
                 </div>
             </div>
             <PureModal

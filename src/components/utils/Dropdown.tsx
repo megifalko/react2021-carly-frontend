@@ -6,13 +6,14 @@ import CarsFilter from "./navbar/CarsFilter";
 interface NewCarPlaceholderProps {
   content: Function;
   name: any;
+  className?: string;
 }
 
 const Dropdown = (props: NewCarPlaceholderProps) => {
   const [dropped, setDropped] = useState(false);
   return (
     <div
-        className={"dropdown"}
+        className={"dropdown "}
         onMouseLeave={() => setDropped(false)}
         onMouseEnter={() => setDropped(true)}>
 
@@ -27,7 +28,7 @@ const Dropdown = (props: NewCarPlaceholderProps) => {
       >
         {props.name}  <IoIosArrowDown className={"icon"} />
       </button>
-      <div className={""}>
+      <div className={props.className}>
         <div
           className={
             " border-radius-30 dropdown-content " +
