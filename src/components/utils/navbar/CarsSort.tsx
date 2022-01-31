@@ -28,7 +28,8 @@ const CarsSort = (props: CarsSortProps) => {
             <button className="text-white border-radius-30 w-180 h-50 s-14 m-10 bg-c2 as-center font-weight-700"
                 id={"1" + val.name}
                 onClick={() => {
-                    props.submit(val.name, "asc")
+                    props.close();
+                    props.submit(val.name, "asc");
                 }}>
                 {val.visibleName}: {val.ascending}
             </button>)
@@ -36,6 +37,7 @@ const CarsSort = (props: CarsSortProps) => {
             <button className="text-white border-radius-30 w-180 h-50 s-14 m-10 bg-c2 as-center font-weight-700"
                 id={"2" + val.name}
                 onClick={() => {
+                    props.close();
                     props.submit(val.name, "desc")
                 }}>
                 {val.visibleName}: {val.descending}

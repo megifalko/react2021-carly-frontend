@@ -7,6 +7,7 @@ import useGet from "../../../modules/useGet";
 import useLogin from "../../../modules/useLogin";
 import Dropdown from "../Dropdown";
 import {IoIosArrowForward} from 'react-icons/io'
+import LogOut from "./LogOut";
 
 const NavigationBar = () => {
 
@@ -34,22 +35,32 @@ const NavigationBar = () => {
                         content={(close: Function) => {
                             return <BookingsSort close={close} submit={submitSort}/>
                         }}
-                        name={"Sort"}/>
+                        name={"Sort"}
+                    />
                 </div>
-                <input onChange={(e) => {
-                    setSearchPhrase(e.target.value)
-                }}/>
-                <button className="s-20 text-center bg-transparent flex-row flex-ac-center color-white" onClick={search}>
+
+                <input
+                    onChange={(e) => {
+                        setSearchPhrase(e.target.value)
+                    }}
+                    value={searchPhrase ? searchPhrase : ""}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') search()
+                    }}/>
+                <button className="s-20 text-center bg-transparent flex-row flex-ac-center color-white"
+                        onClick={search}>
                     <RiSearchLine className={"icon"}/>
                 </button>
                 <button
-          className="text-white text-center bg-transparent w-110 flex-row flex-j-center flex-a-center s-16 p-10"
-          onClick={() => navigate("/cars")}>
-          Cars  <IoIosArrowForward className="icon"/>
-        </button>
+                    className="text-white text-center bg-transparent w-110 flex-row flex-j-center flex-a-center s-16 p-10"
+                    onClick={() => navigate("/cars")}>
+                    Cars <IoIosArrowForward className="icon"/>
+                </button>
             </div>
             <div className="a-right">
-                <RiUserLine className="icon" onClick={() => logOut()}/>
+                <div className="a-right">
+                    <Dropdown content={() => <LogOut />} name={<RiUserLine className="icon"/>} />
+                </div>
             </div>
         </>
     );

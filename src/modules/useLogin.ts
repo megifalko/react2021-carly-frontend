@@ -2,20 +2,19 @@ import {useDispatch, useSelector} from "react-redux";
 import {AuthState, login, logout} from "../store/AuthSlice";
 
 export default function() {
-    const isLoggedStorage = localStorage.getItem("logged") === "true";
+    const isLoggedStorage = () => localStorage.getItem("token") !== "";
     const authTokenStorage = localStorage.getItem("token");
 
     const LoginStorage = (token: string) => {
-        localStorage.setItem("logged", "true");
         localStorage.setItem("token", token);
     }
 
     const LogoutStorage = () => {
-        localStorage.setItem("logged", "false");
         localStorage.setItem("token", "");
     }
 
-    const isLoggedRedux = useSelector((state: {auth: AuthState}) => state.auth.isLoggedIn);
+    //const isLoggedRedux = useSelector((state: {auth: AuthState}) => state.auth.isLoggedIn);
+    const isLoggedRedux = () => true;
     const authTokenRedux = useSelector((state: {auth: AuthState}) => state.auth.securityToken);
 
     const dispatch = useDispatch();
@@ -48,7 +47,7 @@ export default function() {
                     e.name === 'NS_ERROR_DOM_QUOTA_REACHED');
         }
     }
-    let isLoggedIn : boolean;
+    let isLoggedIn : Function;
     let authToken : string;
     let logIn : Function;
     let logOut: Function;

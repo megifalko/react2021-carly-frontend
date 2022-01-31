@@ -5,11 +5,12 @@ import NavigationBarContentCars from "./NavigationBarContentCars";
 import NavigationBarContentEmpty from "./NavigationBarContentEmpty";
 import NavigationBarContentBookings from "./NavigationBarContentBookings";
 import { useNavigate } from "react-router-dom";
+import useLogin from "../../../modules/useLogin";
 
 const NavigationBar = () => {
   const curr = window.location.pathname;
   let content;
-  const navigate = useNavigate();
+  const {isLoggedIn} = useLogin();
   switch (curr) {
     case "/cars":
       content = <NavigationBarContentCars />;
@@ -18,7 +19,10 @@ const NavigationBar = () => {
       content = <NavigationBarContentBookings />;
       break;
     default:
-      content = <NavigationBarContentEmpty />;
+      if(isLoggedIn())
+        content = <NavigationBarContentCars />;
+      else
+        content = <NavigationBarContentEmpty />;
       break;
   }
   return (

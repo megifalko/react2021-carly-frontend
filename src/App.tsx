@@ -13,7 +13,7 @@ export interface PrivateRouteProps extends RouteProps {
 
 export const PrivateRoute = ({ redirectPath }: PrivateRouteProps) => {
   const {isLoggedIn} = useLogin();
-  if (isLoggedIn) {
+  if (isLoggedIn()) {
     return <Outlet />;
   }
   return <Navigate to={redirectPath} />;

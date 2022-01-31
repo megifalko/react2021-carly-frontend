@@ -5,13 +5,17 @@ import CarsFilter from "./navbar/CarsFilter";
 
 interface NewCarPlaceholderProps {
   content: Function;
-  name: string;
+  name: any;
 }
 
 const Dropdown = (props: NewCarPlaceholderProps) => {
   const [dropped, setDropped] = useState(false);
   return (
-    <div className={"dropdown"}>
+    <div
+        className={"dropdown"}
+        onMouseLeave={() => setDropped(false)}
+        onMouseEnter={() => setDropped(true)}>
+
       <button
         className={
           "text-white text-center bg-transparent w-80 flex-row flex-j-center s-16 flex-row flex-a-center p-10 drop-button " +
