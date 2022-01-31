@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AuthState, login, logout} from "../store/AuthSlice";
 
 export default function() {
-    const isLoggedStorage = () => localStorage.getItem("token") !== "";
+    const isLoggedStorage = () => (localStorage.getItem("token") ?? "") !== "";
     const authTokenStorage = localStorage.getItem("token");
 
     const LoginStorage = (token: string) => {
