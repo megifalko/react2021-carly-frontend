@@ -63,7 +63,6 @@ const CarList = () => {
                 );
                 setLoadingList(false);
             });
-
     };
 
     const handleShowDetails = (car: Car) => {
@@ -175,6 +174,7 @@ const CarList = () => {
                         </div>
                         <div className="flex-row flex-j-center">
                             <ReactPaginate
+                                forcePage={page}
                                 nextLabel="next >"
                                 onPageChange={(event) => setPage(event.selected)}
                                 pageRangeDisplayed={3}

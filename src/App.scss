@@ -182,7 +182,11 @@ input {
   align-items: space-between;
 }
 
-#root > div > div:nth-child(2) > ul > li.page-item.active{
+//#root > div > div:nth-child(2) > ul > li.page-item.active{
+//  text-decoration: underline;
+//}
+
+.page-item.active{
   text-decoration: underline;
 }
 
