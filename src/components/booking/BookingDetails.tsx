@@ -14,14 +14,13 @@ const BookingDetails: React.FC<BookingDetailsProps> = (
   const [imageURL, setImageURL] = useState("");
   useEffect(() => {
     getImagesIds(props.booking.carId, authToken).then((id) => {
-      console.log(id);
       setImageURL(id.length > 0 ? imageUri(id[0]) : "https://www.downloadclipart.net/large/car-png-photos.png");
     });
-  }, []);
+  }, [props.booking.carId, authToken]);
   return (
     <div className="flex-row w-600">
       <div className="flex-col w-350 flex-j-center flex-a-start">
-        <img src={imageURL} alt="car image" className="car-img" />
+        <img src={imageURL} alt="car" className="car-img" />
       </div>
       <div className="flex-col w-250 pl-10 flex-j-center flex-a-start">
         <p className="s-16">Client ID</p>

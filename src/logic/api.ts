@@ -220,6 +220,5 @@ export const deleteImage = async (id: string, securityToken: string) => {
 }
 
 export const imageUri = (imageId: string) => {
-    // console.log(`${BASE_URL}/images/${imageId}`);
     return `${BASE_URL}/images/${imageId}`
 }

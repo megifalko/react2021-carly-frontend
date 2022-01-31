@@ -123,7 +123,7 @@ const NavigationBar = () => {
                 </button>
                 <button
                     className="text-white text-center bg-transparent w-110 flex-row flex-j-center flex-a-center s-16 p-10"
-                    onClick={() => navigate("bookings")}
+                    onClick={() => navigate("/bookings")}
                 >
                     Bookings <IoIosArrowForward className="icon"/>
                 </button>
