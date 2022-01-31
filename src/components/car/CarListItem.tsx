@@ -23,13 +23,15 @@ const CarListItem: React.FC<CarListItemProps> = (props: CarListItemProps) => {
     getImagesIds(props.car.id, authToken)
       .then((data) => {
         setImagesIds(data);
+        setLoadingImage(false)
       })
       .catch((e) => {
         console.error(
           "Error during updating the imagesIds \n" + JSON.stringify(e)
         );
+        setLoadingImage(false)
       });
-      setLoadingImage(false)
+
   };
 
 
@@ -45,11 +47,10 @@ const CarListItem: React.FC<CarListItemProps> = (props: CarListItemProps) => {
           {props.car.model}
         </p>
       </div>
-        {loadingImage ? <Loader/> :
       <div className="flex-row flex-a-start w-250">
-        <img src={carImage} alt="car image" className="car-img" />
+          {loadingImage ? <Loader/> :
+          <img src={carImage} alt="car image" className="car-img" />}
       </div>
-        }
       <button
         className="bg-c2 w-220 h-50 border-radius-75 s-28 text-center font-weight-700 color-white no-border"
         onClick={(_) => props.onShowDetails(props.car)}

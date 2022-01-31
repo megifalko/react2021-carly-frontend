@@ -4,7 +4,7 @@ import React from "react";
 const Loader = () => {
     return (<div className="loader" style={{
         display: "block",
-        margin: "auto",
+        margin: "100px auto",
         border: "10px solid #f3f3f3",
         borderTop: "10px solid #3498db",
         borderRadius: "50%",

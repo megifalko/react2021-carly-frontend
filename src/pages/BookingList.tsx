@@ -63,6 +63,7 @@ const BookingList = () => {
             </PureModal>
             {bookings.map((booking: Booking) =>
                 <BookingListItem booking={booking}
+                                 key={booking.id}
                                  onShowDetails={handleShow}
                                  onCancelDetails={handleCancel}/>
             )}
