@@ -21,7 +21,7 @@ const NavigationBar = () => {
     const query = new URLSearchParams(useLocation().search);
 
     const navigate = useNavigate();
-    const {updateParam, refreshPath} = useGet("cars");
+    const {updateParam, refreshPath} = useGet("/cars");
     const {logOut, authToken} = useLogin();
     const [newCarVisible, setNewCarVisible] = useState(false);
     const [searchPhrase, setSearchPhrase] = useState(

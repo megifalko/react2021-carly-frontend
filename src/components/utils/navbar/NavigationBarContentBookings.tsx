@@ -11,7 +11,7 @@ import LogOut from "./LogOut";
 
 const NavigationBar = () => {
   const query = new URLSearchParams(useLocation().search);
-  const { updateParam, refreshPath } = useGet("bookings");
+  const { updateParam, refreshPath } = useGet("/bookings");
   const { logOut } = useLogin();
   const navigate = useNavigate();
   const [searchPhrase, setSearchPhrase] = useState(
