@@ -1,8 +1,7 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import CarListItem from "../components/car/CarListItem";
 import {Car} from "../objects/Car";
 import {
-    addCar,
     deleteCar,
     deleteImage,
     getCarsWithParams,
@@ -34,14 +33,14 @@ const CarList = () => {
     const [cars, setCars] = useState<Car[]>([]);
     const [showDetails, setShowDetails] = useState(false);
     const [showEditor, setShowEditor] = useState(false);
-    const [showNew, setShowNew] = useState(false);
     const [details, setDetails] = useState<Car>(defaultCar);
     const [carsPerPage] = useState(8);
     const [page, setPage] = useState(0);
     const [pageCount, setPageCount] = useState(0);
-    const [loadingList, setLoadingList] = useState(false);
+    const [loadingList, setLoadingList] = useState(true);
 
     useEffect(() => {
+        setLoadingList(true)
         updateList();
     }, [page, location.search]);
 
@@ -62,8 +61,8 @@ const CarList = () => {
                 console.error(
                     "Error during updating the car list \n" + JSON.stringify(e)
                 );
+                setLoadingList(false);
             });
-        setLoadingList(false);
     };
 
     const handleShowDetails = (car: Car) => {
@@ -123,77 +122,83 @@ const CarList = () => {
             });
     };
 
-
     return (
-        loadingList ? <Loader/> :
-            <div>
-                <PureModal
-                    header=""
-                    onClose={() => {
-                        handleClose(setShowDetails);
-                        return true;
-                    }}
-                    isOpen={showDetails}
-                >
-                    <CarDetails
-                        car={details}
-                        editHandler={handleEdit}
-                        deleteHandler={handleDelete}
-                    />
-                </PureModal>
-
-                <PureModal
-                    header="Car editor"
-                    onClose={() => {
-                        handleClose(setShowEditor);
-                        return true;
-                    }}
-                    isOpen={showEditor}
-                >
-                    <CarEditor
-                        car={details}
-                        cancelHandler={() => setShowEditor(false)}
-                        saveHandler={(car, uploadedImages, imgsToDelete) => {
-                            handleSave(car, uploadedImages, imgsToDelete);
-                            setShowEditor(false);
-                        }}
-                    />
-                </PureModal>
-
-                <div className="flex-row wrap flex-j-center flex-ac-start col-gap-30 pt-30">
-                    {cars.map((car) => {
-                        return (
-                            <CarListItem
-                                key={car.id}
-                                car={car}
-                                onShowDetails={handleShowDetails}
+        <>
+            {
+                loadingList ? (<Loader/>) : cars.length == 0 ?
+                    (<p>No cars have been found.</p>) :
+                    (<>
+                        <PureModal
+                            header="Car Details"
+                            onClose={() => {
+                                handleClose(setShowDetails);
+                                return true;
+                            }}
+                            isOpen={showDetails}
+                        >
+                            <CarDetails
+                                car={details}
+                                editHandler={handleEdit}
+                                deleteHandler={handleDelete}
                             />
-                        );
-                    })}
-                </div>
-                <div className="flex-row flex-j-center">
-                    <ReactPaginate
-                        nextLabel="next >"
-                        onPageChange={(event) => setPage(event.selected)}
-                        pageRangeDisplayed={3}
-                        marginPagesDisplayed={2}
-                        pageCount={pageCount}
-                        pageClassName="page-item"
-                        pageLinkClassName="page-link"
-                        previousLabel="< previous"
-                        previousClassName="page-item"
-                        previousLinkClassName="page-link"
-                        nextClassName="page-item"
-                        nextLinkClassName="page-link"
-                        breakLabel="..."
-                        breakClassName="page-item"
-                        breakLinkClassName="page-link"
-                        containerClassName="pagination"
-                        activeClassName="active"
-                        renderOnZeroPageCount={undefined}
-                    />
-                </div>
-            </div>
+                        </PureModal>
+
+                        <PureModal
+                            header="Car editor"
+                            onClose={() => {
+                                handleClose(setShowEditor);
+                                return true;
+                            }}
+                            isOpen={showEditor}
+                        >
+                            <CarEditor
+                                car={details}
+                                cancelHandler={() => setShowEditor(false)}
+                                saveHandler={(car, uploadedImages, imgsToDelete) => {
+                                    handleSave(car, uploadedImages, imgsToDelete);
+                                    setShowEditor(false);
+                                }}
+                            />
+                        </PureModal>
+
+                        <div className="flex-row wrap flex-j-center flex-ac-start col-gap-30 pt-30">
+                            {cars.map((car) => {
+                                return (
+                                    <CarListItem
+                                        key={car.id}
+                                        car={car}
+                                        onShowDetails={handleShowDetails}
+                                    />
+                                );
+                            })}
+                        </div>
+                        <div className="flex-row flex-j-center">
+                            <ReactPaginate
+                                forcePage={page}
+                                nextLabel="next >"
+                                onPageChange={(event) => setPage(event.selected)}
+                                pageRangeDisplayed={3}
+                                marginPagesDisplayed={2}
+                                pageCount={pageCount}
+                                pageClassName="page-item"
+                                pageLinkClassName="page-link"
+                                previousLabel="< previous"
+                                previousClassName="page-item"
+                                previousLinkClassName="page-link"
+                                nextClassName="page-item"
+                                nextLinkClassName="page-link"
+                                breakLabel="..."
+                                breakClassName="page-item"
+                                breakLinkClassName="page-link"
+                                containerClassName="pagination"
+                                activeClassName="active"
+                                renderOnZeroPageCount={undefined}
+                            />
+                        </div>
+                    </>)
+            }
+        </>
+
     );
 };
 
