@@ -8,7 +8,7 @@ import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import authReducer from './store/AuthSlice'
 
-const rootReducer = combineReducers({auth: authReducer});
+const rootReducer = combineReducers({auth: authReducer}); //todo: remove bookings reducer (redundant)
 
 export const store = createStore(
   rootReducer,

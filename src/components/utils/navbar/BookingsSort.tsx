@@ -1,6 +1,9 @@
 import React from "react";
 import "../../../styles/navbar.css";
 import {RiCloseLine} from "react-icons/ri";
+import {useDispatch, useSelector} from "react-redux";
+import {AuthState} from "../../../store/AuthSlice";
+import {BookingsSortingOrder} from "../../../logic/api";
 
 interface BookingsSortProps {
     close: Function;
@@ -15,8 +18,7 @@ interface BookingsFilter {
 const BookingsSort = (props : BookingsSortProps) => {
 
     const filters: BookingsFilter[] = [
-        {name: "date", visibleName: "Data dodania", ascending: "od najmłodszych", descending: "od najstarszych"},
-        {name: "price", visibleName: "Cena", ascending: "od najtańszych", descending: "od najdroższych"},
+        {name: "date", visibleName: "Date: ", ascending: "ascending", descending: "descending"},
     ]
 
     const options: JSX.Element[] = [];
@@ -50,6 +52,5 @@ const BookingsSort = (props : BookingsSortProps) => {
         </div>
     );
 };
-
 export default BookingsSort;
 
