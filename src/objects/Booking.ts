@@ -1,7 +1,9 @@
 export interface Booking {
 	id: string;
-	clientId: string;
+	customerFirstName: string;
+	customerLastName: string;
 	carId: string;
 	startDate: Date;
+	endDate: Date;
 	active: boolean;
 }
