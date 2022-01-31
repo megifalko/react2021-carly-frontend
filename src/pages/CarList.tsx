@@ -123,44 +123,43 @@ const CarList = () => {
     };
 
     return (
-        <>
+        <div>
+            <PureModal
+                header="Car Details"
+                onClose={() => {
+                    handleClose(setShowDetails);
+                    return true;
+                }}
+                isOpen={showDetails}
+            >
+                <CarDetails
+                    car={details}
+                    editHandler={handleEdit}
+                    deleteHandler={handleDelete}
+                />
+            </PureModal>
+
+            <PureModal
+                header="Car editor"
+                onClose={() => {
+                    handleClose(setShowEditor);
+                    return true;
+                }}
+                isOpen={showEditor}
+            >
+                <CarEditor
+                    car={details}
+                    cancelHandler={() => setShowEditor(false)}
+                    saveHandler={(car, uploadedImages, imgsToDelete) => {
+                        handleSave(car, uploadedImages, imgsToDelete);
+                        setShowEditor(false);
+                    }}
+                />
+            </PureModal>
             {
                 loadingList ? (<Loader/>) : cars.length == 0 ?
                     (<p>No cars have been found.</p>) :
                     (<>
-                        <PureModal
-                            header="Car Details"
-                            onClose={() => {
-                                handleClose(setShowDetails);
-                                return true;
-                            }}
-                            isOpen={showDetails}
-                        >
-                            <CarDetails
-                                car={details}
-                                editHandler={handleEdit}
-                                deleteHandler={handleDelete}
-                            />
-                        </PureModal>
-
-                        <PureModal
-                            header="Car editor"
-                            onClose={() => {
-                                handleClose(setShowEditor);
-                                return true;
-                            }}
-                            isOpen={showEditor}
-                        >
-                            <CarEditor
-                                car={details}
-                                cancelHandler={() => setShowEditor(false)}
-                                saveHandler={(car, uploadedImages, imgsToDelete) => {
-                                    handleSave(car, uploadedImages, imgsToDelete);
-                                    setShowEditor(false);
-                                }}
-                            />
-                        </PureModal>
-
                         <div className="flex-row wrap flex-j-center flex-ac-start col-gap-30 pt-30">
                             {cars.map((car) => {
                                 return (
@@ -197,7 +196,7 @@ const CarList = () => {
                         </div>
                     </>)
             }
-        </>
+        </div>
 
     );
 };
