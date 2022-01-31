@@ -16,12 +16,14 @@ const BookingList = () => {
     const [show, setShow] = useState(false);
     const [page, setPage] = useState(0);
     const [pageCount, setPageCount] = useState(0);
-    const [details, setDetails] = useState({
+    const [details, setDetails] = useState<Booking>({
         active: false,
         carId: "",
-        clientId: "",
+        customerFirstName: "",
+        customerLastName: "",
         id: "",
-        startDate: new Date(0)
+        startDate: new Date(0),
+        endDate: new Date(0),
     })
 
     useEffect(() => {
