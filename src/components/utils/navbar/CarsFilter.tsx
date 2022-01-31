@@ -56,8 +56,8 @@ const CarsFilter = (props: CarsFilterProps) => {
             }}/>
             {/*<input onChange={(e) => {setLocation(e.target.value)}} className="input-border"/>*/}
             <p>Model</p>
-            <Autocomplete suggestions={modelTypes} onChange={(e: any) => {
-                setModel(e.target.value)
+            <Autocomplete suggestions={modelTypes} onChange={(val: string) => {
+                setModel(val)
             }}/>
             {/*<input onChange={(e) => {*/}
             {/*    setModel(e.target.value)*/}
