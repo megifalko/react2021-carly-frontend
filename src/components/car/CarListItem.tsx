@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Car } from "../../objects/Car";
 import useLogin from "../../modules/useLogin";
 import { getImagesIds, imageUri } from "../../logic/api";
+import Loader from "../utils/Loader";
 
 interface CarListItemProps {
   car: Car;
@@ -11,12 +12,14 @@ interface CarListItemProps {
 const CarListItem: React.FC<CarListItemProps> = (props: CarListItemProps) => {
   const { authToken } = useLogin();
   const [imagesIds, setImagesIds] = useState<string[]>([]);
+  const [loadingImage, setLoadingImage] = useState(false);
 
   useEffect(() => {
     updateImagesIds();
   }, [props.car]);
 
   const updateImagesIds = () => {
+      setLoadingImage(true)
     getImagesIds(props.car.id, authToken)
       .then((data) => {
         setImagesIds(data);
@@ -26,7 +29,9 @@ const CarListItem: React.FC<CarListItemProps> = (props: CarListItemProps) => {
           "Error during updating the imagesIds \n" + JSON.stringify(e)
         );
       });
+      setLoadingImage(false)
   };
+
 
   const carImage = imagesIds.length > 0 ? imageUri(imagesIds[0]) : "https://www.downloadclipart.net/large/car-png-photos.png";
 
@@ -40,10 +45,11 @@ const CarListItem: React.FC<CarListItemProps> = (props: CarListItemProps) => {
           {props.car.model}
         </p>
       </div>
-
+        {loadingImage ? <Loader/> :
       <div className="flex-row flex-a-start w-250">
         <img src={carImage} alt="car image" className="car-img" />
       </div>
+        }
       <button
         className="bg-c2 w-220 h-50 border-radius-75 s-28 text-center font-weight-700 color-white no-border"
         onClick={(_) => props.onShowDetails(props.car)}
