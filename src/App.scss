@@ -121,6 +121,14 @@ input {
   outline: none;
 }
 
+.suggestion{
+  position: relative;
+  left: -30px;
+  &:hover{
+    cursor: pointer;
+  }
+}
+
 .logout{
   position: absolute;
   right: 0;

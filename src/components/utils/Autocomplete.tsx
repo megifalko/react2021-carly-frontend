@@ -34,7 +34,7 @@ const Autocomplete = (props: AutocompleteProps) => {
     }
 
     const renderSuggestion = (suggestion: string) => (
-        <div>
+        <div className="m-0 suggestion">
             {suggestion}
         </div>
     );
