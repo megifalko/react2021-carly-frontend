@@ -52,7 +52,7 @@ const BookingList = () => {
     }
 
     return (
-        <div className="flex-row wrap flex-j-center flex-ac-start col-gap-30 pt-30">
+        <div className="flex-col flex-a-center flex-ac-center col-gap-30 pt-30">
             <PureModal
                 header=""
                 onClose={() => {
