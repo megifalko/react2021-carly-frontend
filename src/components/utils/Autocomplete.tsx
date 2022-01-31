@@ -9,18 +9,19 @@ interface AutocompleteProps {
 const Autocomplete = (props: AutocompleteProps) => {
     const [value, setValue] = useState("");
     const [currSuggestions, setCurrSuggestions] = useState(props.suggestions);
+    const levenshtein = require("js-levenshtein");
     const getSuggestions = (value: string) => {
         const inputValue = value?.trim().toLowerCase();
         const inputLength = inputValue.length;
 
         return inputLength === 0 ? props.suggestions : props.suggestions.filter(elem =>
             elem.trim().toLowerCase().includes(inputValue)
-        );
+        ).sort((a:string, b:string) => levenshtein(b, value) - levenshtein(a, value))
+            .slice(0, 5);
     };
 
     const onSuggestionsFetchRequested = (request: any) => {
         setCurrSuggestions(getSuggestions(request.value));
-
     };
 
     const onSuggestionsClearRequested = () => {
