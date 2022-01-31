@@ -47,20 +47,20 @@ const CarDetails: React.FC<CarDetailsProps> = (props) => {
           }}
           isOpen={showDeletePrompt}
       >
-        <>
+        <div className="flex-row flex-j-center mt-40">
           <button
               onClick={(_) => {setShowDeletePrompt(false); props.deleteHandler()}}
-              className="bg-c9 w-220 h-50 border-radius-75 s-28 text-center font-weight-700 color-white no-border mr-10"
+              className="bg-c9 w-100 h-50 border-radius-75 s-28 text-center font-weight-700 color-white no-border mr-10"
           >
             Yes
           </button>
           <button
               onClick={(_) => setShowDeletePrompt(false)}
-              className="bg-c2 w-220 h-50 border-radius-75 s-28 text-center font-weight-700 color-white no-border ml-10"
+              className="bg-c2 w-100 h-50 border-radius-75 s-28 text-center font-weight-700 color-white no-border ml-10"
           >
             No
           </button>
-        </>
+        </div>
       </PureModal>
       <div className="flex-row w-600">
         <div className="flex-col w-250 pl-10">

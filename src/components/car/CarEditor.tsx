@@ -53,6 +53,7 @@ const CarEditor: React.FC<CarEditorProps> = ({
   };
 
   const updatePrice = (price: number) => {
+    if (price )
     setEditedCar({ ...editedCar, price: price });
   };
 
@@ -134,6 +135,8 @@ const CarEditor: React.FC<CarEditorProps> = ({
           <input
             className="input-border w-200"
             type={"number"}
+            min="1800"
+            max="2050"
             defaultValue={car.year}
             placeholder="2022"
             onChange={(e) => updateYear(Number(e.target.value))}
@@ -159,6 +162,7 @@ const CarEditor: React.FC<CarEditorProps> = ({
           <input
             className="input-border w-200"
             type={"number"}
+            min={1}
             defaultValue={car.price}
             onChange={(e) => updatePrice(Number(e.target.value))}
           />
