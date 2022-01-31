@@ -1,31 +1,58 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import BookingListItem from "../components/booking/BookingListItem";
 import {Booking} from "../objects/Booking";
 import PureModal from 'react-pure-modal';
 import 'react-pure-modal/dist/react-pure-modal.min.css';
 import BookingDetails from "../components/booking/BookingDetails";
-
-const defaultBooking: Booking = {
-    clientId: "123456789",
-    carId: "qwertyuiop",
-    startDate: new Date(2021, 12, 28, 12, 43),
-    active: true
-}
+import {deactivateBooking, getBookingsFiltered} from "../logic/api";
+import useLogin from "../modules/useLogin";
+import ReactPaginate from "react-paginate";
+import {useLocation} from "react-router-dom";
 
 const BookingList = () => {
+    const {authToken} = useLogin()
+    const location = useLocation();
+    const [bookings, setBookings] = useState([]);
     const [show, setShow] = useState(false);
-    const [details, setDetails] = useState(defaultBooking)
+    const [page, setPage] = useState(0);
+    const [pageCount, setPageCount] = useState(0);
+    const [details, setDetails] = useState({
+        active: false,
+        carId: "",
+        clientId: "",
+        id: "",
+        startDate: new Date(0)
+    })
+
+    useEffect(() => {
+        updateList(page)
+    }, [page, location]);
 
     const handleShow = (booking: Booking) => {
         setDetails(booking)
         setShow(true);
     }
     const handleClose = () => setShow(false)
+    const handleCancel = (booking: Booking, securityToken: string) => {
+        deactivateBooking(booking.id, securityToken).catch((e) => {
+            console.error("Error during canceling the booking\n" +
+                JSON.stringify(e));
+        })
+    }
+    const updateList = (page: number) => {
+        getBookingsFiltered(authToken, page, location.search.substring(1)).then(data => {
+            setBookings(data.data);
+            setPageCount(data.pageCount);
+        }).catch((e) => {
+            console.error("Error during updating the bookings list \n" +
+                JSON.stringify(e));
+        })
+    }
 
     return (
         <div className="flex-row wrap flex-j-center flex-ac-start col-gap-30 pt-30">
             <PureModal
-                header="Booking details"
+                header=""
                 onClose={() => {
                     handleClose()
                     return true;
@@ -34,10 +61,31 @@ const BookingList = () => {
             >
                 <BookingDetails booking={details}/>
             </PureModal>
-
-            <BookingListItem booking={defaultBooking} onShowDetails={handleShow}/>
-            <BookingListItem booking={defaultBooking} onShowDetails={handleShow}/>
-            <BookingListItem booking={defaultBooking} onShowDetails={handleShow}/>
+            {bookings.map((booking: Booking) =>
+                <BookingListItem booking={booking}
+                                 onShowDetails={handleShow}
+                                 onCancelDetails={handleCancel}/>
+            )}
+            <ReactPaginate
+                nextLabel="next >"
+                onPageChange={(event) => setPage(event.selected)}
+                pageRangeDisplayed={3}
+                marginPagesDisplayed={2}
+                pageCount={pageCount}
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousLabel="< previous"
+                previousClassName="page-item"
+                previousLinkClassName="page-link"
+                nextClassName="page-item"
+                nextLinkClassName="page-link"
+                breakLabel="..."
+                breakClassName="page-item"
+                breakLinkClassName="page-link"
+                containerClassName="pagination"
+                activeClassName="active"
+                renderOnZeroPageCount={undefined}
+            />
         </div>
     );
 };

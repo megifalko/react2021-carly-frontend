@@ -18,8 +18,8 @@ const CarsSort = (props: CarsSortProps) => {
 
 
     const filters: CarFilter[] = [
-        {name: "date", visibleName: "Data dodania", ascending: "od najmłodszych", descending: "od najstarszych"},
-        {name: "price", visibleName: "Cena", ascending: "od najtańszych", descending: "od najdroższych"},
+        {name: "date", visibleName: "Date", ascending: "Newest to oldest", descending: "Oldest to newest"},
+        {name: "price", visibleName: "Price", ascending: "Ascending", descending: "Descending"},
     ]
 
     const options: JSX.Element[] = [];

@@ -72,7 +72,7 @@ const CarDetails: React.FC<CarDetailsProps> = (props) => {
           </div>
           <div className="flex-row flex-j-between pr-20">
             <h2 className="m-0">{props.car.model}</h2>
-            <h2 className="m-0">{props.car.year}</h2>
+            <h2 className="m-0 text-green">{props.car.year}</h2>
           </div>
           <p className="m-0 mt-50">Engine</p>
           <h3 className="m-0">{props.car.engine}</h3>
@@ -87,8 +87,16 @@ const CarDetails: React.FC<CarDetailsProps> = (props) => {
             showPlayButton={false}
             showBullets={true}
           />
-          <h2 className="as-end pr-10">$ {props.car.price}</h2>
-          <span className="as-end pr-10">/day</span>
+          <div className="flex-col">
+            <div className="flex-row flex-j-end flex-a-end">
+              <h2 className="as-end pr-10 text-green s-28">
+                $ {props.car.price}
+              </h2>
+            </div>
+            <div className="flex-row flex-j-end flex-a-end">
+              <span className="as-end pr-10">/day</span>
+            </div>
+          </div>
         </div>
       </div>
       <div className="flex-row flex-j-center mt-40">
