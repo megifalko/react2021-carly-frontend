@@ -123,14 +123,14 @@ const CarList = () => {
             });
     };
 
-
     return (
         <>
             {
-                loadingList ? (<Loader/>) :
-                    (<div>
+                loadingList ? (<Loader/>) : cars.length == 0 ?
+                    (<p>No cars have been found.</p>) :
+                    (<>
                         <PureModal
-                            header=""
+                            header="Car Details"
                             onClose={() => {
                                 handleClose(setShowDetails);
                                 return true;
@@ -195,7 +195,7 @@ const CarList = () => {
                                 renderOnZeroPageCount={undefined}
                             />
                         </div>
-                    </div>)
+                    </>)
             }
         </>
 
