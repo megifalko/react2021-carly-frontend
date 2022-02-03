@@ -174,7 +174,7 @@ export const deactivateBooking = async (id: string, securityToken: string) => {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',
-                'security-header': `Bearer ${securityToken}`
+                'Authorization': `Bearer ${securityToken}`
             }
         }).then(response => {
         if (response.ok) return response.json()
