@@ -1,3 +1,7 @@
+# Backend source
+
+To use a locally hosted backend, change `BASE_URL` in logic/api.ts and modules/useAuthorization.ts. You might also need to add `proxy: "http://localhost:8080"` to package.json and set `BASE_URL` as `''` if problems with CORS occur.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
